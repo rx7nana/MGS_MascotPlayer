@@ -1,14 +1,14 @@
-# MGS_MascotPlayer Ver1.0.2 候補
+# MGS_MascotPlayer Ver1.0.3
 
 MML・MGSの演奏と、3Dマスコットのモーションを楽しむWindows用プレイヤーです。透明なウィンドウ、プレイリスト、BPM同期、前後シーク、テーマ切替に対応します。
 
-**Ver1.0.2はユーザー承認前の検証候補です。** 自作コードはMIT License（Copyright (c) 2026 rx7nana）。素材と公式アイコンは別条件です。Ver1.0.0の公開済みRelease・タグは維持します。今回のVer1.0.2候補はGitHubへ未反映です。既存v1.0.0・v1.0.1のRelease/タグを変更しません。
+**最新版はVer1.0.3です。** Windows配布ZIPとソースコードをGitHubで公開しています。自作コードはMIT License (Copyright (c) 2026 rx7nana)です。素材と公式アイコンには別条件が適用されます。過去のVer1.0.0～Ver1.0.2のRelease・タグも維持しています。
 
 ![動作確認画面例](docs/images/application.png)
 
 ## Windowsアプリの入手・起動
 
-Ver1.0.0は[GitHub Releases](https://github.com/rx7nana/MGS_MascotPlayer/releases)で公開済みです。本工程の配布候補はVer1.0.2です。ソースZIPとWindowsアプリZIPは別です。[公開手順](docs/RELEASE.md)に候補ファイルを記載しています。
+最新版Ver1.0.3は[GitHub Releases](https://github.com/rx7nana/MGS_MascotPlayer/releases/latest)からダウンロードできます。Windowsアプリ用ZIPを選択してください。ソースコード用ZIPとは別です。
 
 Windows 11 x64で検証しています。Microsoft Edge WebView2 Evergreen Runtimeが必要です。未導入の場合は[Microsoft公式配布ページ](https://developer.microsoft.com/microsoft-edge/webview2/)から対応するEvergreen Runtimeを導入してください。Runtime・インストーラーは本アプリに同梱しません。オフラインPCでは事前に別途Runtime導入が必要です。
 
