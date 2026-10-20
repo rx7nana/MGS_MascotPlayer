@@ -39,3 +39,6 @@ body #mini.dragging #drop-hint{background:none!important}
 #popup{width:350px}#popup-range{min-width:55px}#popup-value{min-width:44px;text-align:right;font-size:12px;font-variant-numeric:tabular-nums;color:#eef8ff}#tracks{padding-top:19px}
 
 #loading{left:24px;width:calc(100% - 48px);white-space:pre-line;overflow-wrap:anywhere;font-size:12px;line-height:1.6}
+
+/* User-requested message surface; the transparent mini playlist is unchanged. */
+#loading{left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100% - 48px);background:color-mix(in srgb,var(--ui-base,#10243b) 92%,transparent);color:var(--ui-text,#effbff);border:1px solid var(--ui-edge,#526c84);border-radius:6px;padding:10px 12px;box-sizing:border-box;text-shadow:none;box-shadow:0 2px 10px #0005}

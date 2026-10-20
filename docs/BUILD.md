@@ -1,6 +1,6 @@
 # ビルド手順（Windows x64）
 
-本手順はv026公開ソースの実ビルドで使用した方式です。依存物は同梱しません。バージョンを更新せず、固定版を利用してください。
+本手順は従来の固定方式を維持し、Ver1.0.2候補の公開対象ソースでも再ビルド確認した方式です。依存物は同梱しません。バージョンを更新せず、固定版を利用してください。
 
 | ツール・依存 | 検証した版 |
 |---|---|
@@ -18,7 +18,7 @@ Python 3.12以降（tarのdata filter対応）、Node.js（テスト用）を用
 ```powershell
 python tools/fetch-frontend.py
 python tools/build.py --llvm-bin C:\tools\llvm-mingw\bin --webview2-sdk C:\tools\webview2-sdk --cmake C:\tools\cmake\bin\cmake.exe --ninja C:\tools\ninja.exe --esbuild .deps/node_modules/@esbuild/win32-x64/esbuild.exe --node-modules .deps/node_modules
-node --test tests/*.test.cjs
+node --test tests/*.test.cjs tests/*.test.mjs tests/*.test.mjs
 ```
 
 取得ヘルパーは`docs/DEPENDENCIES.lock.json`の固定URL・SHA-256・SHA-512で4つの公式npmアーカイブを照合し、`.deps/node_modules`に展開します。インストールスクリプトは実行しません。オフラインの場合は同ハッシュの既取得パッケージを配置し、`--node-modules`と`--esbuild`で指定できます。package.jsonはバージョン案内用にも用意していますが、npm全推移依存のpackage-lockはありません。`npm ci`の再現性を検証したという意味ではありません。

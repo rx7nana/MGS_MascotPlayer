@@ -81,8 +81,7 @@ json externals() {
          {"valid", valid},
          {"sha256", hash},
          {"message", item[1] + " v" + item[2] +
-                         " を実行ファイルと同じフォルダへ配置してください：" +
-                         utf8(root.wstring())}});
+                         " を実行ファイルと同じフォルダへ配置してください。"}});
   }
   return out;
 }

@@ -112,6 +112,7 @@ void event(const std::string &name, const json &data = nullptr) {
 }
 #include "dpi-input-v020.hpp"
 bool ui(POINT p) {
+  if (settingsHwnd) return false;
   if (dropActive) return true;
   if (held || dragging || frontendHeld)
     return true;
@@ -152,7 +153,7 @@ void saveConfig(bool clearMotionBackups = false) {
   }
   if (!MoveFileExW(temp.c_str(), file.c_str(),
                    MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH))
-    throw std::runtime_error("Atomic settings save failed");
+    throw std::runtime_error("Atomic settings save failed, Win32="+std::to_string(GetLastError()));
 }
 #include "host-files.hpp"
 json sanitize(const json &input) {
@@ -205,6 +206,15 @@ json sanitize(const json &input) {
       id = "list-" + std::to_string(GetTickCount64()) + "-" + std::to_string(i);
     l["id"] = id;
     ids.insert(id);
+    json songIds=json::array();std::set<std::string> usedSongs;
+    const auto supplied=l.value("songIds",json::array());
+    for(size_t n=0;n<l["songs"].size();++n){
+      std::string entry;
+      if(supplied.is_array() && supplied.size()==l["songs"].size() && supplied[n].is_string()) entry=supplied[n].get<std::string>();
+      if(entry.empty() || entry.size()>200 || usedSongs.count(entry)) entry=id+"-song-"+std::to_string(GetTickCount64())+"-"+std::to_string(n);
+      usedSongs.insert(entry);songIds.push_back(entry);
+    }
+    l["songIds"]=songIds;
     i++;
   }
   int active = c["active"].is_number_integer() ? c["active"].get<int>() : 0;
@@ -572,10 +582,12 @@ void message(const std::string &text) {
           auto kind = args.size() > 1 && args[1].is_object()
                           ? args[1].value("kind", std::string())
                           : std::string();
+          std::string missing;
           for (auto &x : externals())
-            if (!x["valid"].get<bool>() &&
-                (kind != "mgs" || x["key"] == "driver"))
-              throw std::runtime_error(x["message"]);
+            if (!x["valid"].get<bool>() && (kind != "mgs" || x["key"] == "driver")) {
+              if(!missing.empty())missing+="\n";missing+=x["message"].get<std::string>();
+            }
+          if(!missing.empty())throw std::runtime_error(missing+"\n登録済みプレイリストは保持されます。配置後、再生を押してください（再起動不要）。");
           result = true;
         } else if (name == "choose-mml") {
           result = json::array();
@@ -584,7 +596,7 @@ void message(const std::string &text) {
         } else if (name == "confirm") {
           int r = MessageBoxW(
               settingsHwnd ? settingsHwnd : hwnd,
-              L"プレイリストに未保存の変更があります。保存して続行しますか？",
+              L"プレイリストの編集を保存して続行しますか？\nはい：設定へ保存／いいえ：編集を破棄／キャンセル：編集を続ける",
               L"MGS_MascotPlayer", MB_YESNOCANCEL | MB_ICONQUESTION);
           result = r == IDYES ? 0 : r == IDNO ? 1 : 2;
         } else if (name == "save-list") {
@@ -1247,6 +1259,7 @@ void selectDataRoot() {
 void loadConfig() {
   std::ifstream f(root / L"defaults.json");
   f >> defaults;
+  defaults = sanitize(defaults);
   cfg = defaults;
   auto settings = dataRoot / L"settings.json";
   if (fs::exists(settings)) {

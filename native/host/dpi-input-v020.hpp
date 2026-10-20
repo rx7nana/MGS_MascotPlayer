@@ -6,6 +6,7 @@ bool cssContains(POINT p, double x, double y, double width, double height) {
   return cx>=x && cy>=y && cx<x+width && cy<y+height;
 }
 bool dropContains(POINT p) {
+  if(settingsHwnd) return false;
   return cssContains(p,dropArea.value("x",390.0),dropArea.value("y",70.0),
       dropArea.value("width",240.0),dropArea.value("height",180.0));
 }
