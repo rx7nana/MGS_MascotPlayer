@@ -1,10 +1,11 @@
-# GitHub公開・Releasesの登録対象
+# Ver1.0.1 候補の更新手順
 
-GitHubへの公開はまだ行っていません。公開先URLはユーザーが決定後に設定します。READMEのReleases案内は、実際の公開リポジトリのReleasesへ誘導してください。
+今回のソースとWindows候補はユーザー承認前です。GitHubの更新・正式公開は別工程です。
 
-- リポジトリ：本ソース構成。LICENSE（MIT）、LICENSE-SCOPE、ASSET-LICENSE、第三者通知、ビルド手順を含めます。
-- Releases：Windows ZIP `MGS_MascotPlayer_Ver1.0.0_Windows_v027.zip`、SHA256SUMS.txt、RELEASE_NOTES.mdの説明。
-- v025のWindows ZIPは基準として保護し、v027では実行用ファイルを変えず権利文書・案内だけを追加・整合しました。
-- v025の旧ソースZIPは未使用COMダンプを含むため、そのまま公開しないでください。除外済みv027の公開用ソースを使用します。
+- 既存Ver1.0.0 Releaseとタグ `v1.0.0` は変更しません。
+- 承認後にmainへVer1.0.1ソースを反映し、新しいタグ `v1.0.1` とReleaseを作成する予定です。
+- Windows ZIPとソースZIPは別です。候補ZIP・SHA-256・検証結果を確認してから登録します。
+- 外部COM、VMD、利用者の曲・設定・キャッシュ、開発用検証資料は同梱しません。未使用COMダンプも再混入させません。
+- 公開済み履歴中の開発PCパスは現在ファイルの修正だけでは消えません。今回、履歴の書き換えは行いません。
 
-自作コードはMIT、Copyright (c) 2026 rx7nana。素材はASSET-LICENSE、公式アイコンは公式版専用、第三者は個別原文です。素材条件でコードのMITを制限しません。GitHub公開・アップロード・正式版置換はユーザーの最終承認後の別作業です。
+MIT、素材条件、公式アイコンの条件、第三者LICENSE・NOTICEを維持します。

@@ -23,7 +23,7 @@
   "instrument": true,
   "repeat": false,
   "shuffle": false,
-  "vmdBpm": 160,
+  "vmdBpm": null,
   "vmdLoop": true,
   "vmdPath": "",
   "motionHash": "",

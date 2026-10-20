@@ -45,7 +45,7 @@ export class PerformanceController {
  const reachedX=this.reachableRightX(this.x);const l=this.arm('左',this.instrument.world(this.approvedPose.leftWrist),this.blend),r=this.arm('右',this.instrument.world([reachedX,this.approvedPose.rightWrist[1],this.approvedPose.rightWrist[2]]),this.blend);
  this.hand('左',this.blend);this.hand('右',this.blend);
  const legAfter=legBefore.map(row=>{const b=this.bones.get(row[0]);return b?[row[0],...b.linkedBone.rotationQuaternion.asArray(),...b.linkedBone.position.asArray()]:[row[0]];});const lowerBodyUnchanged=JSON.stringify(legBefore)===JSON.stringify(legAfter);
- sample.visualDelta=state.playing?dt:0;this.instrument.light(sample,state.time>0&&this.config.instrumentVisible&&!!state.motion);this.events.mark(state.time);this.metrics={enabled,blend:this.blend,pitch:sample.active?.pitch??null,physicalPitch:sample.active?.physicalPitch??null,track:sample.active?.track??null,rightZoneX:this.x,rightReachAdjustedX:reachedX,left:l,right:r,lowerBodyUnchanged,leftApprovedShapePositionError:this.poseError('左')};}
+ sample.visualDelta=state.playing?dt:0;this.instrument.light(sample,(state.audioTime??state.time)>0&&this.config.instrumentVisible);this.events.mark(state.time);this.metrics={enabled,blend:this.blend,pitch:sample.active?.pitch??null,physicalPitch:sample.active?.physicalPitch??null,track:sample.active?.track??null,rightZoneX:this.x,rightReachAdjustedX:reachedX,left:l,right:r,lowerBodyUnchanged,leftApprovedShapePositionError:this.poseError('左')};}
 }
 
 

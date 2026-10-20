@@ -1,21 +1,21 @@
-# MGS_MascotPlayer Ver1.0.0
+# MGS_MascotPlayer Ver1.0.1 候補
 
 MML・MGSの演奏と、3Dマスコットのモーションを楽しむWindows用プレイヤーです。透明なウィンドウ、プレイリスト、BPM同期、前後シーク、テーマ切替に対応します。
 
-自作コードはMIT License（Copyright (c) 2026 rx7nana）。素材と公式アイコンは別条件です。
+**Ver1.0.1は検証中・ユーザー承認前の候補です。** 自作コードはMIT License（Copyright (c) 2026 rx7nana）。素材と公式アイコンは別条件です。Ver1.0.0の公開済みRelease・タグは維持します。今回の候補はGitHubへ未反映です。
 
 ![動作確認画面例](docs/images/application.png)
 
 ## Windowsアプリの入手・起動
 
-一般利用者向けZIPは、このリポジトリの **Releases** からダウンロードできます。ソースZIPとWindowsアプリZIPは別です。公開手順は[公開手順](docs/RELEASE.md)を参照してください。
+Ver1.0.0は[GitHub Releases](https://github.com/rx7nana/MGS_MascotPlayer/releases)で公開済みです。Ver1.0.1の配布候補は承認待ちです。ソースZIPとWindowsアプリZIPは別です。[公開手順](docs/RELEASE.md)に候補ファイルを記載しています。
 
 Windows 11 x64で検証しています。Microsoft Edge WebView2 Evergreen Runtimeが必要です。未導入の場合は[Microsoft公式配布ページ](https://developer.microsoft.com/microsoft-edge/webview2/)から対応するEvergreen Runtimeを導入してください。Runtime・インストーラーは本アプリに同梱しません。オフラインPCでは事前に別途Runtime導入が必要です。
 
 1. WindowsアプリZIPをフォルダごと展開します。EXEだけを移動しないでください。
 2. 正当に入手した **MGSC.COM v1.11 / MGSDRV.COM v3.20** をEXEと同じフォルダに配置します。これらは本リポジトリ・配布ZIPに含みません。
 3. `MGS_MascotPlayer.exe`を起動し、設定のシステム欄でCOMの認識を確認します。
-4. VMDモーションは利用者が権利条件を確認して別途用意し、設定から指定してください。
+4. 初期状態はVMD未選択・基準BPM未設定です。VMDモーションは利用者が権利条件を確認して別途用意し、設定から選択して基準BPMを確定してください。VMDがなくてもモデル表示・音楽再生を利用できます。
 
 SmartScreen等の警告が出た場合は、配布元・ファイルのハッシュ・利用者自身の判断を確認してください。WebView2のSmartScreenに関する[利用者通知](docs/PRIVACY_NOTICE.txt)もお読みください。
 
@@ -31,6 +31,8 @@ SmartScreen等の警告が出た場合は、配布元・ファイルのハッシ
 - 終了は通常の閉じる操作またはAlt+F4です。
 
 設定・プレイリスト等は現在の実装では `%APPDATA%/MGS_MascotPlayer/validation/code-audit-refactor-v016` に保存されます。過去候補と共用する場合があります。アンインストールはアプリを終了して展開フォルダを削除します。保存データを消す場合は先にバックアップし、このアプリの当該フォルダだけを確認してください。
+
+「設定を初期値に戻す」はVMDの選択・パス・基準BPM・BPM履歴も初期化します。通常起動では保存済みVMD設定を復元します。保存先のVMDが見つからない、または読み込みに失敗した場合は選択を解除して案内し、モデル表示を継続します。VMDファイル本体は削除しません。
 
 ## 検証範囲・制限
 

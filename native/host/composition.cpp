@@ -31,7 +31,7 @@ ICoreWebView2Controller *settingsCtl = nullptr;
 ICoreWebView2 *settingsWeb = nullptr;
 ICoreWebView2Environment *environment = nullptr;
 void openSettings();
-std::string settingsSource = "defaults", settingsWarning;
+std::string settingsSource = "defaults", settingsWarning, motionWarning;
 json defaults;
 json cfg, audioCfg, regionList = json::array();
 bool frontendHeld = false, closeAllowed = false, closeRequested = false;
@@ -126,14 +126,18 @@ bool ui(POINT p) {
 json sanitize(const json &);
 void atomicFile(const fs::path &, const json &);
 #include "atomic-json.hpp"
-void saveConfig() {
+void saveConfig(bool clearMotionBackups = false) {
   auto dir = dataRoot;
   fs::create_directories(dir);
   auto file = dir / L"settings.json", temp = dir / L"settings.json.tmp";
   auto text = cfg.dump(2);
   writeFlushedJsonTemp(temp, text, "Settings temporary file failed",
                        "Settings flush failed");
-  if (fs::exists(file)) {
+  if (clearMotionBackups) {
+    atomicFile(dir / L"settings.json.bak", cfg);
+    auto previous = dir / L"settings.json.previous.bak";
+    if (fs::exists(previous)) atomicFile(previous, cfg);
+  } else if (fs::exists(file)) {
     json prior;
     try {
       std::ifstream input(file);
@@ -158,7 +162,8 @@ json sanitize(const json &input) {
   for (auto it = input.begin(); it != input.end(); ++it)
     if (c.contains(it.key()) &&
         ((c[it.key()].is_number() && it.value().is_number()) ||
-         c[it.key()].type() == it.value().type()))
+         c[it.key()].type() == it.value().type() ||
+         (it.key() == "vmdBpm" && (it.value().is_number() || it.value().is_null()))))
       c[it.key()] = it.value();
   for (auto range :
        std::vector<std::tuple<std::string, double, double, double>>{
@@ -168,8 +173,7 @@ json sanitize(const json &input) {
            {"angle", -180, 180, 0},
            {"duration", 1, 600, 300},
            {"loop", 1, 99, 2},
-           {"fade", 0, 60, 5},
-           {"vmdBpm", 20, 400, 160}}) {
+           {"fade", 0, 60, 5}}) {
     auto [k, lo, hi, fallback] = range;
     double v = c[k].is_number() ? c[k].get<double>() : fallback;
     c[k] = std::isfinite(v) ? std::clamp(v, lo, hi) : fallback;
@@ -217,9 +221,17 @@ json sanitize(const json &input) {
           it.value().is_number() && it.value() >= 20 && it.value() <= 400)
         profiles[it.key()] = it.value();
   c["profiles"] = profiles;
+  if (c["vmdPath"].get<std::string>().empty()) {
+    c["motionHash"] = "";
+    c["vmdBpm"] = nullptr;
+  } else if (!c["vmdBpm"].is_number() ||
+             !std::isfinite(c["vmdBpm"].get<double>()) ||
+             c["vmdBpm"] < 20 || c["vmdBpm"] > 400) {
+    c["vmdBpm"] = nullptr;
+  }
   return c;
 }
-void applyConfig(const json &patch) {
+void applyConfig(const json &patch, bool clearMotionBackups = false) {
   if(patch.contains("gain") && (!patch["gain"].is_number() || !std::isfinite(patch["gain"].get<double>()) || patch["gain"]<0 || patch["gain"]>4))
     throw std::runtime_error("gain must be a finite number from 0 to 4");
   auto before = cfg, merged = cfg;
@@ -227,7 +239,7 @@ void applyConfig(const json &patch) {
     merged[it.key()] = it.value();
   cfg = sanitize(merged);
   try {
-    saveConfig();
+    saveConfig(clearMotionBackups);
   } catch (...) {
     cfg = before;
     throw;
@@ -244,6 +256,11 @@ void applyConfig(const json &patch) {
   event("config", cfg);
 }
 json pendingMotion;
+void clearCurrentMotion(const std::string &warning = "") {
+  pendingMotion = nullptr;
+  motionWarning = warning;
+  applyConfig({{"vmdPath", ""}, {"motionHash", ""}, {"vmdBpm", nullptr}});
+}
 
 json commitMotion(double bpm) {
   if (!std::isfinite(bpm) || bpm < 20 || bpm > 400 || pendingMotion.is_null())
@@ -256,6 +273,7 @@ json commitMotion(double bpm) {
   cfg["motionHash"] = m["hash"];
   cfg["vmdBpm"] = bpm;
   cfg["profiles"][m["hash"].get<std::string>()] = bpm;
+  motionWarning.clear();
   saveConfig();
   event("config", cfg);
   pendingMotion = nullptr;
@@ -319,6 +337,7 @@ json info() {
   return {{"cfg", cfg},
           {"settingsRecovery", settingsSource},
           {"settingsWarning", settingsWarning},
+          {"motionWarning", motionWarning},
           {"run", utf8(reportDir.wstring())},
           {"data", utf8(dataRoot.wstring())},
           {"trackTitles", json::object()},
@@ -535,14 +554,15 @@ void message(const std::string &text) {
           if (MessageBoxW(
                   settingsHwnd ? settingsHwnd : hwnd,
                   L"一般設定を初期値へ戻しますか？ "
-                  L"プレイリスト・VMD基準BPM・ユーザーファイルは保持します。",
+                  L"VMDの選択・基準BPM・履歴も初期化します。プレイリストとユーザーファイルは保持します。",
                   L"MGS_MascotPlayer",
                   MB_OKCANCEL | MB_DEFBUTTON2 | MB_ICONQUESTION) == IDOK) {
             auto reset = defaults;
-            for (auto k : {"playlists", "active", "profiles", "vmdPath",
-                           "vmdBpm", "motionHash"})
+            for (auto k : {"playlists", "active"})
               reset[k] = cfg[k];
-            applyConfig(reset);
+            pendingMotion = nullptr;
+            motionWarning.clear();
+            applyConfig(reset, true);
             result = true;
           } else
             result = false;
@@ -623,15 +643,20 @@ void message(const std::string &text) {
           if (cfg.value("vmdPath", std::string()).empty())
             result = nullptr;
           else {
-            auto m = inspectMotion(wide(cfg["vmdPath"]));
-            if (m["needsBpm"]) {
+            try {
+              auto m = inspectMotion(wide(cfg["vmdPath"]));
               pendingMotion = m;
-              result = m;
-            } else {
-              pendingMotion = m;
-              result = commitMotion(m["knownBpm"].get<double>());
+              result = m["needsBpm"].get<bool>()
+                         ? m : commitMotion(m["knownBpm"].get<double>());
+            } catch (const std::exception &e) {
+              log("startup-vmd-unavailable " + std::string(e.what()));
+              clearCurrentMotion("VMDを読み込めないため、VMD未選択で起動しました。設定から選び直してください。");
+              result = {{"invalid", true}, {"warning", motionWarning}};
             }
           }
+        } else if (name == "vmd-load-failed") {
+          clearCurrentMotion("VMDを読み込めません。設定から別のVMDを選択してください。");
+          result = true;
         } else if (name == "record") {
           if (args.size() > 1)
             log("record " + args[1].dump());

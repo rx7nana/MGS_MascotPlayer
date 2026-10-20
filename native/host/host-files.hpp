@@ -179,5 +179,5 @@ json inspectMotion(const fs::path &p) {
             {"bytes", b.size()}}},
           {"needsBpm", known.is_null()},
           {"knownBpm", known},
-          {"suggested", p.filename() == L"nac_kawagome.vmd" ? 160 : 120}};
+          {"suggested", 120}};
 }
