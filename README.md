@@ -2,13 +2,13 @@
 
 MML・MGSの演奏と、3Dマスコットのモーションを楽しむWindows用プレイヤーです。透明なウィンドウ、プレイリスト、BPM同期、前後シーク、テーマ切替に対応します。
 
-**公開準備済み・ユーザーの最終確認待ちです。** 自作コードはMIT License（Copyright (c) 2026 rx7nana）。素材と公式アイコンは別条件です。GitHubへの公開・Releasesの作成はまだ行っていません。
+自作コードはMIT License（Copyright (c) 2026 rx7nana）。素材と公式アイコンは別条件です。
 
 ![動作確認画面例](docs/images/application.png)
 
 ## Windowsアプリの入手・起動
 
-一般利用者向けZIPは、公開後にこのリポジトリの **Releases** から配布する予定です。現時点では公開先URLは未設定です。ソースZIPとWindowsアプリZIPは別です。[公開手順](docs/RELEASE.md)に候補ファイルを記載しています。
+一般利用者向けZIPは、このリポジトリの **Releases** からダウンロードできます。ソースZIPとWindowsアプリZIPは別です。公開手順は[公開手順](docs/RELEASE.md)を参照してください。
 
 Windows 11 x64で検証しています。Microsoft Edge WebView2 Evergreen Runtimeが必要です。未導入の場合は[Microsoft公式配布ページ](https://developer.microsoft.com/microsoft-edge/webview2/)から対応するEvergreen Runtimeを導入してください。Runtime・インストーラーは本アプリに同梱しません。オフラインPCでは事前に別途Runtime導入が必要です。
 
