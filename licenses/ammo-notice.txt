@@ -1,0 +1,10 @@
+﻿Ammo.js / Bullet Physics 補足案内（v017の配布構成）
+
+対象: web/ammo.wasm.js および web/ammo.wasm.wasm。
+使用物はbabylon-mmd 1.3.0に付属し、v014/v016から同じSHA-256で継承したAmmo JavaScript/WebAssembly成果物です。Ammo自身の独立したリリース番号は当該配布物から確定していないため、babylon-mmdの版番号をAmmoの版番号とは表示しません。正確な対象ファイルはMANIFEST.txtのSHA-256で識別します。
+web/ammo.wasm.jsの冒頭は、Bullet PhysicsをJavaScriptへ移植したAmmoであり、zlibライセンスであることを明示しています。
+Ammoの著作権・許諾原文: licenses/ammo-LICENSE.txt（変更せず同梱）。
+babylon-mmdの許諾原文: licenses/babylon-mmd-LICENSE（変更せず同梱）。
+上流プロジェクト: https://github.com/kripken/ammo.js
+
+このWebView2版にはElectron/Chromiumの旧配布版のLICENSE・LICENSES.chromium.htmlは同梱しません。それら旧ファイルを現行Ammoの許諾参照先としません。モデル・VMD等の素材の権利はこれらのソフトウェアライセンスとは別です。

@@ -1,0 +1,55 @@
+[
+  {
+    "name": "@babylonjs/core",
+    "version": "9.23.0",
+    "metadataURL": "https://registry.npmjs.org/@babylonjs/core/9.23.0",
+    "url": "https://registry.npmjs.org/@babylonjs/core/-/core-9.23.0.tgz",
+    "sha256": "3dcd4d20953bdd94cace73813fbebdddc99d3961ff15fdb3f558d8fb54d2a817",
+    "integrity": "sha512-FpDaTPx485J1H0AEJpoJ785Z1CwCkEPNnZFu7WzHTy0ByGCy75bkZZILh4QFU4LLnzK1iuHwUfecCguATIeKSA==",
+    "license": "Apache-2.0",
+    "dependencies": {},
+    "peerDependencies": {},
+    "acquiredUTC": "2026-10-20T05:36:31.203438+00:00"
+  },
+  {
+    "name": "@babylonjs/loaders",
+    "version": "9.23.0",
+    "metadataURL": "https://registry.npmjs.org/@babylonjs/loaders/9.23.0",
+    "url": "https://registry.npmjs.org/@babylonjs/loaders/-/loaders-9.23.0.tgz",
+    "sha256": "757b1a029ef80c52d4ac7041f4c896fd3ba4ff47773155990860e6950539ea32",
+    "integrity": "sha512-4qNxiHmi2udyZmTsVL3iUUfVF4BKecgmFpp1//wBoZ6RhTWlkbBT4CIJLVPeibXZeJliZ5vII8rvZqDPgGiotw==",
+    "license": "Apache-2.0",
+    "dependencies": {},
+    "peerDependencies": {
+      "@babylonjs/core": "^9.0.0",
+      "babylonjs-gltf2interface": "^9.0.0"
+    },
+    "acquiredUTC": "2026-10-20T05:36:32.379236+00:00"
+  },
+  {
+    "name": "babylon-mmd",
+    "version": "1.3.0",
+    "metadataURL": "https://registry.npmjs.org/babylon-mmd/1.3.0",
+    "url": "https://registry.npmjs.org/babylon-mmd/-/babylon-mmd-1.3.0.tgz",
+    "sha256": "6c14a695f2f8374a1155488a57e9f5a81e6aa5b1de0258d606c12b7a5f207953",
+    "integrity": "sha512-+ms/0h43a77DM/txFGEFY3YnOnJSVlEYDYlRZTDg9m1mterByX+bpRM6R8xg+0iMVZZ86TXUks8NEfMJizuBRQ==",
+    "license": "MIT",
+    "dependencies": {},
+    "peerDependencies": {
+      "@babylonjs/core": "^9.15.0"
+    },
+    "acquiredUTC": "2026-10-20T05:36:33.297985+00:00"
+  },
+  {
+    "name": "@esbuild/win32-x64",
+    "version": "0.25.12",
+    "metadataURL": "https://registry.npmjs.org/@esbuild/win32-x64/0.25.12",
+    "url": "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.25.12.tgz",
+    "sha256": "c77076b48f96323cae6257bd515e5ea96ecf38ab8f7fa34364d4fc4ae5905b74",
+    "integrity": "sha512-alJC0uCZpTFrSL0CCDjcgleBXPnCrEAhTBILpeAp7M/OFgoqtAetfBzX0xM00MUsVVPpVjlPuMbREqnZCXaTnA==",
+    "license": "MIT",
+    "dependencies": {},
+    "peerDependencies": {},
+    "acquiredUTC": "2026-10-20T05:36:33.713990+00:00"
+  }
+]

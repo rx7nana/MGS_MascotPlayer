@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.15)
+project(Phase6Audio LANGUAGES C CXX)
+
+add_compile_definitions(EXCLUDE_DRIVER_ALL WINVER=0x0A00 _WIN32_WINNT=0x0A00)
+add_subdirectory(vendor/libkss libkss)
+add_library(compiler_wrapper STATIC vendor/mgsc/src/mgsc.cpp vendor/mgsc/src/bdos.cpp vendor/mgsc/src/z80.cpp vendor/mgsc/src/ram64k.cpp)
+target_include_directories(compiler_wrapper PRIVATE vendor/mgsc/modules/kmz80 vendor/libkss/modules/kmz80)
+target_link_libraries(compiler_wrapper kmz80)
+add_executable(audio-core native.cpp)
+target_compile_features(audio-core PRIVATE cxx_std_17)
+if(MSVC)
+  message(FATAL_ERROR "v011 requires LLVM-MinGW GNU Windows target, not MSVC")
+endif()
+target_compile_options(audio-core PRIVATE -finput-charset=UTF-8)
+target_link_options(audio-core PRIVATE -municode -static "-Wl,-Map=${CMAKE_BINARY_DIR}/audio-core.map")
+target_include_directories(audio-core PRIVATE vendor/mgsc/src vendor/libkss/src vendor/libkss/modules)
+target_link_libraries(audio-core kss compiler_wrapper psapi)
+
+
+
+option(MGS_BUILD_SEEK_PROBE "Build isolated seek feasibility probe" OFF)
+if(MGS_BUILD_SEEK_PROBE)
+add_executable(seek-state-probe ../../probe/seek-state-probe.cpp)
+target_compile_features(seek-state-probe PRIVATE cxx_std_17)
+target_include_directories(seek-state-probe PRIVATE . vendor/libkss/src vendor/libkss/modules)
+target_link_libraries(seek-state-probe kss)
+target_link_options(seek-state-probe PRIVATE -municode -static)
+endif()

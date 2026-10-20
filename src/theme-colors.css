@@ -1,0 +1,31 @@
+/* Colors only; no geometry or playback behavior. */
+body{color:var(--ui-text)}
+body[data-window="main"] #controls,body[data-window="main"] #popup{background:color-mix(in srgb,var(--ui-base) 92%,transparent);color:var(--ui-text)}
+body[data-window="main"] button{color:var(--ui-text)}
+body[data-window="main"] #controls .primary{background:var(--ui-accent);color:var(--ui-base)}
+body[data-window="main"] #controls button:hover,body[data-window="main"] #popup-close:hover{color:var(--ui-accent);background:color-mix(in srgb,var(--ui-selected) 60%,transparent)}
+body[data-window="main"] #controls .primary:hover{background:var(--ui-accent);color:var(--ui-base);filter:brightness(1.08)}
+body[data-window="main"] #controls button.active{color:var(--ui-accent)}
+body[data-window="main"] #popup-value{color:var(--ui-accent)}
+body[data-window="main"] #mini{color:#effbff}body[data-window="main"] #mini .current{color:#fff}
+body[data-window="main"] #move,body[data-window="main"] #quit{background:color-mix(in srgb,var(--ui-base) 90%,transparent)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline-color:var(--ui-accent)}
+input[type=range]{accent-color:var(--ui-accent);--range-bg:var(--ui-edge)}
+input[type=range]::-webkit-slider-runnable-track{background:var(--ui-edge)}
+input[type=range]::-webkit-slider-thumb{background:var(--ui-accent)}
+body[data-window="settings"]{background:var(--ui-base);color:var(--ui-text)}
+body[data-window="settings"] aside{background:var(--ui-sidebar);border-color:var(--ui-surface)}
+body[data-window="settings"] .card{background:var(--ui-surface);border-color:transparent}
+body[data-window="settings"] button,body[data-window="settings"] input,body[data-window="settings"] select{background:var(--ui-selected);border-color:transparent;color:var(--ui-text)}
+body[data-window="settings"] button:hover{background:var(--ui-edge);color:var(--ui-text)}
+body[data-window="settings"] nav button{background:transparent;color:var(--ui-muted)}
+body[data-window="settings"] nav button.active{background:var(--ui-selected);color:var(--ui-text)}
+body[data-window="settings"] label.row{border-color:color-mix(in srgb,var(--ui-edge) 28%,transparent)}
+body[data-window="settings"] header small,body[data-window="settings"] #eyebrow{color:var(--ui-accent)}
+body[data-window="settings"] .help,body[data-window="settings"] .page-note,body[data-window="settings"] dt{color:var(--ui-muted)}
+body[data-window="settings"] input[type=checkbox]{accent-color:var(--ui-accent);background:var(--ui-selected)}
+body[data-window="settings"] input[type=checkbox]:checked{background:var(--ui-accent);border-color:var(--ui-accent)}
+body[data-window="settings"] .status{color:var(--ui-accent)}
+body[data-window="settings"] .tag{background:var(--ui-selected);color:var(--ui-accent)}
+.theme-swatch{background:linear-gradient(90deg,var(--sw-base) 0 50%,var(--sw-accent) 50%)}
+.theme-choice[aria-pressed="true"]{outline:2px solid var(--ui-accent);outline-offset:2px}

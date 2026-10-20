@@ -1,0 +1,646 @@
+[
+  {
+    "file": "licenses/ammo-LICENSE.txt",
+    "copyrightLines": [
+      "Copyright (c) 2011 ammo.js contributors"
+    ]
+  },
+  {
+    "file": "licenses/ammo-notice.txt",
+    "copyrightLines": [
+      "Ammoの著作権・許諾原文: licenses/ammo-LICENSE.txt（変更せず同梱）。"
+    ]
+  },
+  {
+    "file": "licenses/babylon-core-license.md",
+    "copyrightLines": [
+      "\"Licensor\" shall mean the copyright owner or entity authorized by the copyright owner that is granting the License.",
+      "\"Work\" shall mean the work of authorship, whether in Source or Object form, made available under the License, as indicated by a copyright notice that is included in or attached to the work (an example is provided in the Appendix below).",
+      "\"Contribution\" shall mean any work of authorship, including the original version of the Work and any modifications or additions to that Work or Derivative Works thereof, that is intentionally submitted to Licensor for inclusion in the Work by the copyright owner or by an individual or Legal Entity authorized to submit on behalf of the copyright own",
+      "## Grant of Copyright License",
+      "Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare Derivative Works of, publicly display, publicly perform, sublicense, and distribute the Work and such Derivative Works in Source or Object form",
+      "3. You must retain, in the Source form of any Derivative Works that You distribute, all copyright, patent, trademark, and attribution notices from the Source form of the Work, excluding those notices that do not pertain to any part of the Derivative Works; and",
+      "You may add Your own copyright statement to Your modifications and may provide additional or different license terms and conditions for use, reproduction, or distribution of Your modifications, or for any such Derivative Works as a whole, provided Your use, reproduction, and distribution of the Work otherwise complies with the conditions stated in "
+    ]
+  },
+  {
+    "file": "licenses/babylon-loaders-license.md",
+    "copyrightLines": [
+      "\"Licensor\" shall mean the copyright owner or entity authorized by the copyright owner that is granting the License.",
+      "\"Work\" shall mean the work of authorship, whether in Source or Object form, made available under the License, as indicated by a copyright notice that is included in or attached to the work (an example is provided in the Appendix below).",
+      "\"Contribution\" shall mean any work of authorship, including the original version of the Work and any modifications or additions to that Work or Derivative Works thereof, that is intentionally submitted to Licensor for inclusion in the Work by the copyright owner or by an individual or Legal Entity authorized to submit on behalf of the copyright own",
+      "## Grant of Copyright License",
+      "Subject to the terms and conditions of this License, each Contributor hereby grants to You a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, prepare Derivative Works of, publicly display, publicly perform, sublicense, and distribute the Work and such Derivative Works in Source or Object form",
+      "3. You must retain, in the Source form of any Derivative Works that You distribute, all copyright, patent, trademark, and attribution notices from the Source form of the Work, excluding those notices that do not pertain to any part of the Derivative Works; and",
+      "You may add Your own copyright statement to Your modifications and may provide additional or different license terms and conditions for use, reproduction, or distribution of Your modifications, or for any such Derivative Works as a whole, provided Your use, reproduction, and distribution of the Work otherwise complies with the conditions stated in "
+    ]
+  },
+  {
+    "file": "licenses/babylon-mmd-LICENSE",
+    "copyrightLines": [
+      "Copyright (c) 2024 noname",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/babylonjs-9.23.0-NOTICE.md",
+    "copyrightLines": [
+      "Copyright 2023 The Babylon.js team",
+      "Copyright 2024 The Khronos Group (https://www.khronos.org/),",
+      "Copyright 2024 The Khronos Group (https://www.khronos.org/),",
+      "Copyright 20221-2024 The Babylon.js team",
+      "Copyright (c) 2016-2026 Arseny Kapoulkine"
+    ]
+  },
+  {
+    "file": "licenses/COPYING.MinGW-w64-runtime.txt",
+    "copyrightLines": [
+      "are under licenses which require that the copyright and license",
+      "Overall copyright notice",
+      "Copyright (c) 2009, 2010, 2011, 2012, 2013 by the mingw-w64 project",
+      "1. Redistributions in source code must retain the accompanying copyright",
+      "copyright notice, this list of conditions, and the following disclaimer",
+      "3. Names of the copyright holders must not be used to endorse or promote",
+      "from the copyright holders.",
+      "the copyright holders.  Use of them is covered by separate agreement",
+      "with the copyright holders.",
+      "THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ``AS IS'' AND ANY EXPRESSED",
+      "EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY DIRECT, INDIRECT,",
+      "Copyright (c) 2002 Todd C. Miller <Todd.Miller@courtesan.com>",
+      "copyright notice and this permission notice appear in all copies.",
+      "Copyright (c) 2000 The NetBSD Foundation, Inc.",
+      "1. Redistributions of source code must retain the above copyright",
+      "2. Redistributions in binary form must reproduce the above copyright",
+      "Copyright (C) 1997, 1998, 1999, 2000, 2001 by Lucent Technologies",
+      "granted, provided that the above copyright notice appear in all",
+      "copies and that both that the copyright notice and this",
+      "Copyright (C) 2005 by David M. Gay",
+      "provided that the above copyright notice appear in all copies and that",
+      "both that the copyright notice and this permission notice and warranty",
+      "Copyright (C) 2004 by David M. Gay.",
+      "which is copyright (C) 1998, 2000 by Lucent Technologies.",
+      "granted, provided that the above copyright notice appear in all",
+      "copies and that both that the copyright notice and this",
+      "Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.",
+      "Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.",
+      "Copyright (C) 1984-1998 Stephen L. Moshier",
+      "Copyright © 2005-2020 Rich Felker, et al."
+    ]
+  },
+  {
+    "file": "licenses/COPYING.MinGW-w64.txt",
+    "copyrightLines": [
+      "The copyright and license notices have been divided in two files:",
+      "Copyright (C) Free Software Foundation",
+      "Copyright 1998, 1999, 2000, 2001, 2002 Red Hat, Inc.",
+      "Copyright (c) 1982, 1983, 1986, 1992, 1993",
+      "1. Redistributions of source code must retain the above copyright",
+      "2. Redistributions in binary form must reproduce the above copyright",
+      "COPYING.LGPLv2.1) and copyrighted by various people. Using these",
+      "Copyright (c) 2009 mingw-w64 project",
+      "The above copyright notice and this permission notice shall be included in",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER",
+      "Copyright (c) 2004-2008 KJK::Hyperion",
+      "The above copyright notice and this permission notice shall be included in",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/COPYING.winpthreads.txt",
+    "copyrightLines": [
+      "Copyright (c) 2011 mingw-w64 project",
+      "The above copyright notice and this permission notice shall be included in",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER",
+      "*  * Redistributions of source code must retain the above copyright notice,",
+      "*  * Redistributions in binary form must reproduce the above copyright notice,",
+      "* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AN",
+      "* IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT,"
+    ]
+  },
+  {
+    "file": "licenses/emu2149-LICENSE.txt",
+    "copyrightLines": [
+      "Copyright (c) 2014 Mitsutaka Okazaki",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/emu2212-LICENSE.txt",
+    "copyrightLines": [
+      "Copyright (c) 2014 Mitsutaka Okazaki",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/emu2413-LICENSE.txt",
+    "copyrightLines": [
+      "Copyright (c) 2001-2019 Mitsutaka Okazaki",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/emu76489-LICENSE.txt",
+    "copyrightLines": [
+      "Copyright (c) 2014 Mitsutaka Okazaki",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/emu8950-LICENSE.txt",
+    "copyrightLines": [
+      "Copyright (c) 2014 Mitsutaka Okazaki",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/kmz80-readme.txt",
+    "copyrightLines": [
+      "Z80 Emulator for C by Mamiya 2006."
+    ]
+  },
+  {
+    "file": "licenses/libkss.txt",
+    "copyrightLines": [
+      "Copyright (c) 2015 Mitsutaka Okazaki",
+      "copyright notice and this permission notice appear in all copies."
+    ]
+  },
+  {
+    "file": "licenses/LLVM-23.1.3-compiler-rt-LICENSE.txt",
+    "copyrightLines": [
+      "\"Licensor\" shall mean the copyright owner or entity authorized by",
+      "the copyright owner that is granting the License.",
+      "copyright notice that is included in or attached to the work",
+      "submitted to Licensor for inclusion in the Work by the copyright owner",
+      "the copyright owner. For the purposes of this definition, \"submitted\"",
+      "designated in writing by the copyright owner as \"Not a Contribution.\"",
+      "2. Grant of Copyright License. Subject to the terms and conditions of",
+      "copyright license to reproduce, prepare Derivative Works of,",
+      "that You distribute, all copyright, patent, trademark, and",
+      "You may add Your own copyright statement to Your modifications and",
+      "same \"printed page\" as the copyright notice for easier",
+      "Copyright [yyyy] [name of copyright owner]",
+      "Copyright (c) 2009-2019 by the contributors listed in CREDITS.TXT",
+      "* Redistributions of source code must retain the above copyright notice,",
+      "* Redistributions in binary form must reproduce the above copyright notice,",
+      "CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER",
+      "Copyright (c) 2009-2015 by the contributors listed in CREDITS.TXT",
+      "The above copyright notice and this permission notice shall be included in",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/LLVM-23.1.3-libcxx-LICENSE.txt",
+    "copyrightLines": [
+      "\"Licensor\" shall mean the copyright owner or entity authorized by",
+      "the copyright owner that is granting the License.",
+      "copyright notice that is included in or attached to the work",
+      "submitted to Licensor for inclusion in the Work by the copyright owner",
+      "the copyright owner. For the purposes of this definition, \"submitted\"",
+      "designated in writing by the copyright owner as \"Not a Contribution.\"",
+      "2. Grant of Copyright License. Subject to the terms and conditions of",
+      "copyright license to reproduce, prepare Derivative Works of,",
+      "that You distribute, all copyright, patent, trademark, and",
+      "You may add Your own copyright statement to Your modifications and",
+      "same \"printed page\" as the copyright notice for easier",
+      "Copyright [yyyy] [name of copyright owner]",
+      "Copyright (c) 2009-2019 by the contributors listed in CREDITS.TXT",
+      "* Redistributions of source code must retain the above copyright notice,",
+      "* Redistributions in binary form must reproduce the above copyright notice,",
+      "CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER",
+      "Copyright (c) 2009-2014 by the contributors listed in CREDITS.TXT",
+      "The above copyright notice and this permission notice shall be included in",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/LLVM-23.1.3-libcxxabi-LICENSE.txt",
+    "copyrightLines": [
+      "\"Licensor\" shall mean the copyright owner or entity authorized by",
+      "the copyright owner that is granting the License.",
+      "copyright notice that is included in or attached to the work",
+      "submitted to Licensor for inclusion in the Work by the copyright owner",
+      "the copyright owner. For the purposes of this definition, \"submitted\"",
+      "designated in writing by the copyright owner as \"Not a Contribution.\"",
+      "2. Grant of Copyright License. Subject to the terms and conditions of",
+      "copyright license to reproduce, prepare Derivative Works of,",
+      "that You distribute, all copyright, patent, trademark, and",
+      "You may add Your own copyright statement to Your modifications and",
+      "same \"printed page\" as the copyright notice for easier",
+      "Copyright [yyyy] [name of copyright owner]",
+      "Copyright (c) 2009-2019 by the contributors listed in CREDITS.TXT",
+      "* Redistributions of source code must retain the above copyright notice,",
+      "* Redistributions in binary form must reproduce the above copyright notice,",
+      "CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER",
+      "Copyright (c) 2009-2014 by the contributors listed in CREDITS.TXT",
+      "The above copyright notice and this permission notice shall be included in",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/LLVM-23.1.3-libunwind-LICENSE.txt",
+    "copyrightLines": [
+      "\"Licensor\" shall mean the copyright owner or entity authorized by",
+      "the copyright owner that is granting the License.",
+      "copyright notice that is included in or attached to the work",
+      "submitted to Licensor for inclusion in the Work by the copyright owner",
+      "the copyright owner. For the purposes of this definition, \"submitted\"",
+      "designated in writing by the copyright owner as \"Not a Contribution.\"",
+      "2. Grant of Copyright License. Subject to the terms and conditions of",
+      "copyright license to reproduce, prepare Derivative Works of,",
+      "that You distribute, all copyright, patent, trademark, and",
+      "You may add Your own copyright statement to Your modifications and",
+      "same \"printed page\" as the copyright notice for easier",
+      "Copyright [yyyy] [name of copyright owner]",
+      "Copyright (c) 2009-2019 by the contributors listed in CREDITS.TXT",
+      "* Redistributions of source code must retain the above copyright notice,",
+      "* Redistributions in binary form must reproduce the above copyright notice,",
+      "CONTRIBUTORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER",
+      "Copyright (c) 2009-2014 by the contributors listed in CREDITS.TXT",
+      "The above copyright notice and this permission notice shall be included in",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/mgsc-upstream-readme.txt",
+    "copyrightLines": [
+      "## 著作権等",
+      "- mgsc-com.h は MSX版 MGSC.COM のダンプデータです。著作権はAin、[GIGAMIX](http://www.gigamix.jp/mgsdrv/)の両氏が保有しています。",
+      "- Z80エミュレーションにMamiya氏作のKMZ80を利用しています。KMZ80はMamiya 氏によりPublic Domain宣言されています。"
+    ]
+  },
+  {
+    "file": "licenses/mgsc.txt",
+    "copyrightLines": [
+      "Copyright (c) 2015, Digital Sound Antiques",
+      "copyright notice and this permission notice appear in all copies."
+    ]
+  },
+  {
+    "file": "licenses/nlohmann-MIT.txt",
+    "copyrightLines": [
+      "Copyright (c) 2013-2025 Niels Lohmann",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/webaudio-stream-player-MIT.txt",
+    "copyrightLines": [
+      "Copyright (c) 2023 Mitsutaka Okazaki",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "licenses/WebView2-LICENSE.txt",
+    "copyrightLines": [
+      "Copyright (C) Microsoft Corporation. All rights reserved.",
+      "* Redistributions of source code must retain the above copyright",
+      "copyright notice, this list of conditions and the following disclaimer",
+      "THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS",
+      "A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT"
+    ]
+  },
+  {
+    "file": "licenses/WebView2-NOTICE.txt",
+    "copyrightLines": [
+      "Copyright (c) 2011 The ANTLR Project",
+      "1. Redistributions of source code must retain the above copyright",
+      "2. Redistributions in binary form must reproduce the above copyright",
+      "3. Neither the name of the copyright holder nor the names of its",
+      "Copyright (c) 2011 The ANTLR Project",
+      "1. Redistributions of source code must retain the above copyright",
+      "2. Redistributions in binary form must reproduce the above copyright",
+      "3. Neither the name of the copyright holder nor the names of its"
+    ]
+  },
+  {
+    "file": "native/host/json.hpp",
+    "copyrightLines": [
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2016 - 2021 Evan Nemerson <evan@nemerson.com>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2018 The Abseil Authors",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>",
+      "// SPDX-FileCopyrightText: 2013 - 2025 Niels Lohmann <https://nlohmann.me>"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/kssxspec.md",
+    "copyrightLines": [
+      "Later Mamiya extended the format for MSX-MUSIC, MSX-AUDIO, SEGA mk3 and GameGear sound. Then he also documented [the format](http://www.purose.net/befis/download/nezplug/kssspec.txt)."
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/LICENSE.md",
+    "copyrightLines": [
+      "Copyright (c) 2015 Mitsutaka Okazaki",
+      "copyright notice and this permission notice appear in all copies."
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/README.md",
+    "copyrightLines": [
+      "- NEZplug and MBM2KSS by Mamiya - http://nezplug.sourceforge.net/"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/LICENSE",
+    "copyrightLines": [
+      "Copyright (c) 2015, Digital Sound Antiques",
+      "copyright notice and this permission notice appear in all copies."
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/README.md",
+    "copyrightLines": [
+      "## 著作権等",
+      "- mgsc-com.h は MSX版 MGSC.COM のダンプデータです。著作権はAin、[GIGAMIX](http://www.gigamix.jp/mgsdrv/)の両氏が保有しています。",
+      "- Z80エミュレーションにMamiya氏作のKMZ80を利用しています。KMZ80はMamiya 氏によりPublic Domain宣言されています。"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/emu2149/emu2149.c",
+    "copyrightLines": [
+      "* Copyright (C) 2001-2022 Mitsutaka Okazaki",
+      "* - s_fme7.c       -- 1999,2000 written by Mamiya (NEZplug)."
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/emu2149/LICENSE",
+    "copyrightLines": [
+      "Copyright (c) 2014 Mitsutaka Okazaki",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/emu2212/LICENSE",
+    "copyrightLines": [
+      "Copyright (c) 2014 Mitsutaka Okazaki",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/emu2413/emu2413.c",
+    "copyrightLines": [
+      "* Copyright (C) 2026 Mitsutaka Okazaki"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/emu2413/LICENSE",
+    "copyrightLines": [
+      "Copyright (c) 2001-2019 Mitsutaka Okazaki",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/emu2413/README.md",
+    "copyrightLines": [
+      "- [plgDavid's YMF281 ROM patches](https://github.com/plgDavid/misc/wiki/Copyright-free-OPLL(x)-ROM-patches)"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/emu76489/LICENSE",
+    "copyrightLines": [
+      "Copyright (c) 2014 Mitsutaka Okazaki",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/emu8950/emu8950.c",
+    "copyrightLines": [
+      "* Copyright (C) 2001-2026 Mitsutaka Okazaki"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/emu8950/LICENSE",
+    "copyrightLines": [
+      "Copyright (c) 2014 Mitsutaka Okazaki",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/kmdmg.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/kmevent.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/kmevent.h",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/kmr800.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/kmtypes.h",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/kmz80.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/kmz80.h",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/kmz80.txt",
+    "copyrightLines": [
+      "Author:   Mamiya (mamiya@proc.org.tohoku.ac.jp)"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/kmz80c.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/kmz80i.h",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/kmz80t.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/makeft.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/README.md",
+    "copyrightLines": [
+      "Z80 Emulator for C by Mamiya 2006."
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/modules/kmz80/test/kmhd180.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/src/kss/kssload.c",
+    "copyrightLines": [
+      "/* Reference : memzip.h -- 2001 Mamiya (NEZplug) */"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/libkss/src/kss/mbm2kss.c",
+    "copyrightLines": [
+      "* This file is based on mbm2kssx.c and mbm2kssx.h written by Mamiya."
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/kmdmg.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/kmevent.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/kmevent.h",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/kmr800.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/kmtypes.h",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/kmz80.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/kmz80.h",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/kmz80.txt",
+    "copyrightLines": [
+      "Author:   Mamiya (mamiya@proc.org.tohoku.ac.jp)"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/kmz80c.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/kmz80i.h",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/kmz80t.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/makeft.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/README.md",
+    "copyrightLines": [
+      "Z80 Emulator for C by Mamiya 2006."
+    ]
+  },
+  {
+    "file": "native/audio/vendor/mgsc/modules/kmz80/test/kmhd180.c",
+    "copyrightLines": [
+      "by Mamiya"
+    ]
+  },
+  {
+    "file": "src/vendor/webaudio-stream-player/LICENSE.md",
+    "copyrightLines": [
+      "Copyright (c) 2023 Mitsutaka Okazaki",
+      "The above copyright notice and this permission notice shall be included in all",
+      "AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER"
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+﻿WebView2・Microsoft Defender SmartScreenに関するお知らせ
+
+本アプリは Microsoft Edge WebView2 を使用しています。利用する WebView2 Runtime には Microsoft Defender SmartScreen が含まれています。SmartScreen は、Microsoft のプライバシーに関する声明および Microsoft Edge の SmartScreen の説明に記載されたとおり、利用者の情報を収集し、Microsoft に送信します。
+
+この情報収集・送信は WebView2 Runtime の機能によるもので、本アプリの開発者への送信を意味しません。本アプリは SmartScreen を無効化していません。動作には Windows の設定や組織のポリシーも影響します。
+
+Microsoft のプライバシーに関する声明:
+https://www.microsoft.com/ja-jp/privacy/privacystatement
+Microsoft Edge の SmartScreen に関する説明:
+https://learn.microsoft.com/en-us/legal/microsoft-edge/privacy#smartscreen
+WebView2 のデータとプライバシー（開発者向け公式説明）:
+https://learn.microsoft.com/en-us/microsoft-edge/webview2/concepts/data-privacy

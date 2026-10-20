@@ -1,0 +1,4 @@
+export class LivePerformanceEvents{
+ constructor(transport,notes){this.transport=transport;this.notes=notes;this.previous={pitch:null,volume:0,noteOn:0};this.lastDiscontinuity=-1;}
+ sample(){const t=this.transport.position,s=this.transport.channel(),changed=this.lastDiscontinuity!==this.transport.discontinuity;if(changed){this.lastDiscontinuity=this.transport.discontinuity;this.previous={pitch:null,volume:0,noteOn:t};}const physical=s?.active&&s.pitch!==null?s.pitch:null;const pitch=physical===null?null:this.notes.reduce((a,b)=>Math.abs(b-physical)<Math.abs(a-physical)?b:a,this.notes[0]);const active=pitch===null?null:{pitch,physicalPitch:physical,volume:s.volume/15,track:this.transport.selection.channel,sourceType:s.sourceType};if(active)this.previous={...active,noteOn:t};return {time:t,active,previous:this.previous,stopped:['stopped','ended'].includes(this.transport.mode),discontinuity:changed};}mark(){}
+}

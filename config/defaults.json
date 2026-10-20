@@ -1,0 +1,40 @@
+{
+  "currentFile": "",
+  "sourceType": "PSG",
+  "channel": 0,
+  "performance": true,
+  "glow": true,
+  "design": "B",
+  "textMode": "C",
+  "uiTheme": "ice",
+  "panelLayout": "A",
+  "repeatMode": "OFF",
+  "top": true,
+  "visualizer": true,
+  "palette": "aurora",
+  "brightness": "standard",
+  "duration": 300,
+  "loop": 2,
+  "fade": 5,
+  "lpf": true,
+  "volume": 0.65,
+  "scale": 100,
+  "angle": 0,
+  "instrument": true,
+  "repeat": false,
+  "shuffle": false,
+  "vmdBpm": 160,
+  "vmdLoop": true,
+  "vmdPath": "",
+  "motionHash": "",
+  "profiles": {},
+  "playlists": [
+    {
+      "name": "マイプレイリスト",
+      "songs": [],
+      "id": "e1e20e64-8f46-4d7d-8d1d-9ece4f6430eb"
+    }
+  ],
+  "active": 0,
+  "gain": 1
+}

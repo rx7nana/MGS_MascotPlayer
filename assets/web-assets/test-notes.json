@@ -1,0 +1,231 @@
+{
+  "schema": "performance-note-events/1",
+  "clock": "animation seconds; repeats every 16 seconds",
+  "duration": 16,
+  "events": [
+    {
+      "track": 0,
+      "noteOn": 0.0,
+      "noteOff": 0.42,
+      "pitch": 48,
+      "volume": 0.55
+    },
+    {
+      "track": 0,
+      "noteOn": 0.5,
+      "noteOff": 0.9199999999999999,
+      "pitch": 55,
+      "volume": 0.67
+    },
+    {
+      "track": 0,
+      "noteOn": 1.0,
+      "noteOff": 1.42,
+      "pitch": 60,
+      "volume": 0.79
+    },
+    {
+      "track": 0,
+      "noteOn": 1.5,
+      "noteOff": 1.92,
+      "pitch": 64,
+      "volume": 0.91
+    },
+    {
+      "track": 0,
+      "noteOn": 2.0,
+      "noteOff": 2.42,
+      "pitch": 69,
+      "volume": 0.55
+    },
+    {
+      "track": 0,
+      "noteOn": 2.5,
+      "noteOff": 2.92,
+      "pitch": 72,
+      "volume": 0.67
+    },
+    {
+      "track": 0,
+      "noteOn": 3.0,
+      "noteOff": 3.42,
+      "pitch": 67,
+      "volume": 0.79
+    },
+    {
+      "track": 0,
+      "noteOn": 3.5,
+      "noteOff": 3.92,
+      "pitch": 62,
+      "volume": 0.91
+    },
+    {
+      "track": 0,
+      "noteOn": 4.0,
+      "noteOff": 4.42,
+      "pitch": 57,
+      "volume": 0.55
+    },
+    {
+      "track": 0,
+      "noteOn": 4.5,
+      "noteOff": 4.92,
+      "pitch": 50,
+      "volume": 0.67
+    },
+    {
+      "track": 0,
+      "noteOn": 5.0,
+      "noteOff": 5.42,
+      "pitch": 65,
+      "volume": 0.79
+    },
+    {
+      "track": 0,
+      "noteOn": 5.5,
+      "noteOff": 5.92,
+      "pitch": 71,
+      "volume": 0.91
+    },
+    {
+      "track": 0,
+      "noteOn": 6.0,
+      "noteOff": 6.42,
+      "pitch": 59,
+      "volume": 0.55
+    },
+    {
+      "track": 0,
+      "noteOn": 6.5,
+      "noteOff": 6.92,
+      "pitch": 53,
+      "volume": 0.67
+    },
+    {
+      "track": 0,
+      "noteOn": 7.0,
+      "noteOff": 7.42,
+      "pitch": 68,
+      "volume": 0.79
+    },
+    {
+      "track": 0,
+      "noteOn": 7.5,
+      "noteOff": 7.92,
+      "pitch": 60,
+      "volume": 0.91
+    },
+    {
+      "track": 0,
+      "noteOn": 8.0,
+      "noteOff": 8.42,
+      "pitch": 72,
+      "volume": 0.55
+    },
+    {
+      "track": 0,
+      "noteOn": 8.5,
+      "noteOff": 8.92,
+      "pitch": 48,
+      "volume": 0.67
+    },
+    {
+      "track": 0,
+      "noteOn": 9.0,
+      "noteOff": 9.42,
+      "pitch": 62,
+      "volume": 0.79
+    },
+    {
+      "track": 0,
+      "noteOn": 9.5,
+      "noteOff": 9.92,
+      "pitch": 67,
+      "volume": 0.91
+    },
+    {
+      "track": 0,
+      "noteOn": 10.0,
+      "noteOff": 10.42,
+      "pitch": 55,
+      "volume": 0.55
+    },
+    {
+      "track": 0,
+      "noteOn": 10.5,
+      "noteOff": 10.92,
+      "pitch": 69,
+      "volume": 0.67
+    },
+    {
+      "track": 0,
+      "noteOn": 11.0,
+      "noteOff": 11.42,
+      "pitch": 64,
+      "volume": 0.79
+    },
+    {
+      "track": 0,
+      "noteOn": 11.5,
+      "noteOff": 11.92,
+      "pitch": 57,
+      "volume": 0.91
+    },
+    {
+      "track": 0,
+      "noteOn": 12.0,
+      "noteOff": 12.42,
+      "pitch": 70,
+      "volume": 0.55
+    },
+    {
+      "track": 0,
+      "noteOn": 12.5,
+      "noteOff": 12.92,
+      "pitch": 52,
+      "volume": 0.67
+    },
+    {
+      "track": 0,
+      "noteOn": 13.0,
+      "noteOff": 13.42,
+      "pitch": 66,
+      "volume": 0.79
+    },
+    {
+      "track": 0,
+      "noteOn": 13.5,
+      "noteOff": 13.92,
+      "pitch": 60,
+      "volume": 0.91
+    },
+    {
+      "track": 0,
+      "noteOn": 14.0,
+      "noteOff": 14.42,
+      "pitch": 72,
+      "volume": 0.55
+    },
+    {
+      "track": 0,
+      "noteOn": 14.5,
+      "noteOff": 14.92,
+      "pitch": 58,
+      "volume": 0.67
+    },
+    {
+      "track": 0,
+      "noteOn": 15.0,
+      "noteOff": 15.42,
+      "pitch": 63,
+      "volume": 0.79
+    },
+    {
+      "track": 0,
+      "noteOn": 15.5,
+      "noteOff": 15.92,
+      "pitch": 55,
+      "volume": 0.91
+    }
+  ]
+}

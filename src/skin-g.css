@@ -1,0 +1,28 @@
+/* Skin G: geometry, spacing, icons and control shape. Single skin, no plugin loader. */
+button svg{width:19px;height:19px;display:block;flex:none;pointer-events:none}
+body[data-window="main"] #controls{border:0;border-radius:8px;box-shadow:none;backdrop-filter:none;padding:10px 13px}
+body[data-window="main"] #controls button,body[data-window="main"] #controls #gear{background:transparent;border:0;box-shadow:none;border-radius:5px;padding:5px;display:inline-flex;align-items:center;justify-content:center}
+body[data-window="main"] #controls .primary{border-radius:9px;width:36px;height:36px}
+body[data-window="main"] #controls .transport{gap:4px}
+body[data-window="main"] #controls #repeat{gap:3px;min-width:45px}#repeat small{font-size:8px}
+body[data-window="main"] #controls .volume{gap:1px}
+body[data-window="main"] #controls .volume input{width:65px}
+body[data-window="main"] #controls #volume-trigger{min-width:21px;width:21px;padding:2px}
+body[data-window="main"] #controls #volume-trigger svg{width:14px;height:14px}
+body[data-window="main"] #controls #gear{min-width:34px}
+body[data-window="main"] #popup{width:350px;max-width:calc(100vw - 60px);min-height:58px;border:0;border-radius:6px;box-shadow:none;display:grid;grid-template-columns:1fr 54px 24px;gap:3px 8px;padding:9px 14px}
+body[data-window="main"] #popup[hidden]{display:none}
+#popup-label{grid-column:1;grid-row:1}#popup-value{grid-column:2;grid-row:1;text-align:right;font-size:12px;font-variant-numeric:tabular-nums}
+#popup-range{grid-column:1/3;grid-row:2;width:100%;min-width:0}#popup-close{grid-column:3;grid-row:1/3;align-self:center;background:transparent;border:0;padding:2px;min-width:22px}
+body[data-window="main"] #move{border:0;border-radius:4px;padding:6px}#move svg{width:22px;height:22px}
+input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;border:0;box-shadow:none;padding:0;height:18px;outline-offset:4px}
+input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:9px;border:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:9px;height:9px;border-radius:50%;margin-top:-3px;border:0;box-shadow:none}
+body[data-window="settings"] .card{border:0;border-radius:7px}
+body[data-window="settings"] button,body[data-window="settings"] input,body[data-window="settings"] select{border-radius:5px}
+body[data-window="settings"] nav button{border-radius:6px}
+body[data-window="settings"] input[type=checkbox]{appearance:none;width:18px;height:18px;padding:0;position:relative;border:1px solid;border-radius:3px;cursor:pointer}
+body[data-window="settings"] input[type=checkbox]:checked:after{content:'';position:absolute;width:8px;height:4px;border-left:2px solid var(--ui-base);border-bottom:2px solid var(--ui-base);transform:rotate(-45deg);left:3px;top:4px}
+.theme-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:14px 0 4px}.theme-choice{min-width:0;padding:8px 3px!important;display:flex;flex-direction:column;align-items:center;gap:7px;font-size:10px!important}.theme-swatch{display:block;width:44px;height:20px;border-radius:4px;border:1px solid #ffffff33}.theme-selection{display:flex;align-items:center;justify-content:space-between;gap:14px}
+
+body[data-window="main"] #popup #popup-range{width:100%}

@@ -1,0 +1,17 @@
+{
+  "name": "mgs-mascotplayer-source",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/*.test.cjs"
+  },
+  "devDependencies": {
+    "@babylonjs/core": "9.23.0",
+    "@babylonjs/loaders": "9.23.0",
+    "babylon-mmd": "1.3.0",
+    "esbuild": "0.25.12"
+  },
+  "author": "rx7nana"
+}
