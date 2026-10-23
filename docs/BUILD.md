@@ -1,42 +1,11 @@
-# ビルド手順（Windows x64）
+# Ver1.0.4 ソースのビルド
 
-本手順は従来の固定方式を維持し、Ver1.0.2候補の公開対象ソースでも再ビルド確認した方式です。依存物は同梱しません。バージョンを更新せず、固定版を利用してください。
+LLVM-MinGW 20261006 UCRT x86_64、同じWebView2 SDK、Babylon.js 9.23.0、babylon-mmd 1.3.0、esbuild 0.25.12を維持します。依存バージョンを更新しないでください。
 
-| ツール・依存 | 検証した版 |
-|---|---|
-| LLVM-MinGW UCRT x86_64 | 20261006、Clang 23.1.3 |
-| WebView2 SDK | Microsoft.Web.WebView2 1.0.4258.31 |
-| CMake / Ninja | 4.3.1 / 1.12.1 |
-| esbuild Windows x64 | 0.25.12 |
-| Babylon core / loaders | 9.23.0 |
-| babylon-mmd | 1.3.0 |
+PythonとNode.js、CMake、Ninja、LLVM-MinGW、WebView2 SDK、固定npm依存を別途準備し、tools/build.py --helpに従って --llvm-bin、--webview2-sdk、--cmake、--ninja、--esbuild、--node-modules と未使用の --out build/任意名 を渡します。既存buildディレクトリへの上書きは拒否します。
 
-Python 3.12以降（tarのdata filter対応）、Node.js（テスト用）を用意してください。LLVM-MinGWは[公式リポジトリ](https://github.com/mstorsjo/llvm-mingw)、SDKは[公式NuGet](https://www.nuget.org/packages/Microsoft.Web.WebView2/1.0.4258.31)を使用します。SDKは展開し、`build/native/include`と`build/native/x64/WebView2Loader.dll`の存在を確認します。CMakeはビルド生成ツールで、MSVCコンパイラを利用する設定ではありません。
+tools/build.pyはホスト、版リソース、UI、音声コアをソースから生成します。本候補作業では音声ソースがVer1.0.3と全バイト一致することを確認し、配布用音声コアはVer1.0.3と同じバイナリを再利用しています。ホストはv035ソースで再生成。完全ビット再現性を保証するものではありません。
 
-リポジトリルートで実行する例です。`C:\tools\...`は利用者の配置先に置き換えてください。
+単体試験：node --test tests/*.test.cjs tests/*.test.mjs 。旧PlaylistDraftの単体試験は互換モジュールの試験で、v035設定UIが旧保存・キャンセル方式を使うことを意味しません。
 
-```powershell
-python tools/fetch-frontend.py
-python tools/build.py --llvm-bin C:\tools\llvm-mingw\bin --webview2-sdk C:\tools\webview2-sdk --cmake C:\tools\cmake\bin\cmake.exe --ninja C:\tools\ninja.exe --esbuild .deps/node_modules/@esbuild/win32-x64/esbuild.exe --node-modules .deps/node_modules
-node --test tests/*.test.cjs tests/*.test.mjs tests/*.test.mjs
-```
-
-取得ヘルパーは`docs/DEPENDENCIES.lock.json`の固定URL・SHA-256・SHA-512で4つの公式npmアーカイブを照合し、`.deps/node_modules`に展開します。インストールスクリプトは実行しません。オフラインの場合は同ハッシュの既取得パッケージを配置し、`--node-modules`と`--esbuild`で指定できます。package.jsonはバージョン案内用にも用意していますが、npm全推移依存のpackage-lockはありません。`npm ci`の再現性を検証したという意味ではありません。
-
-出力は`build/verification/app`です。同一出力先への上書きは拒否します。別試行は`--out build/another-check`を指定してください。生成ログ、コンパイラ版、コマンド、出力SHA、esbuild入力一覧もbuild配下に保存します。
-
-ホストはC++17/O2/静的リンク/Unicode/Windows subsystem、Windows 10 APIターゲット指定で生成します。音声コアはRelease/Ninja、GNU Windows向けClangで生成します。具体的なオプションはtools/build.pyとnative/audio/CMakeLists.txtが正本です。WebView2Loader.dllはSDKからコピーします。MSVC静的CRT・Electron・FFmpegを導入しません。
-
-動作試験では外部COMを生成アプリへ手動配置してください。VMD・曲も別途用意します。リポジトリやソースZIPに含めないでください。PCM比較を行う場合：
-
-```powershell
-python tests/compare-native.py --reference C:\reference\audio-core.exe --candidate build/verification/app/audio-core.exe --driver C:\private-fixtures\MGSDRV.COM --song C:\private-fixtures\test.mgs --report build/native-compare.json
-```
-
-これらは利用者の正当な外部検証データを指定する例であり、同梱データではありません。検証用データ・ログ・WebView2Profile・個人設定をコミットしないでください。通常のエンドユーザーは開発ツールを必要としません。
-
-旧診断用の`MGS_BUILD_SEEK_PROBE`はOFFのまま使用してください。ONで参照する旧probeソースは今回の公開対象外で、その任意の旧診断ターゲットのビルドは検証対象に含めません。製品audio-coreに必要な独自ソースは含めてビルド確認済みです。
-
-## 権利文書と改変版
-
-自作コードはMIT（2026 rx7nana）。素材はASSET-LICENSE.md、公式アイコンは公式版専用です。改変版では[アイコン差し替え手順](ICON_REPLACEMENT.md)を実施してください。build.pyはMIT・素材条件・範囲説明・第三者通知を生成アプリにもコピーします。独自アイコンへの実差し替え試験を今回実施したという意味ではありません。
+実音声比較はtests/compare-native.py --reference 参照audio-core.exe --candidate 新audio-core.exe --driver 外部MGSDRV.COM --song 検証用MGS --report 出力JSON。素材は利用条件を確認して別途準備し、ソースZIPへ同梱しません。

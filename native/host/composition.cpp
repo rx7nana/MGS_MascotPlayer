@@ -7,6 +7,8 @@
 #include <shobjidl.h>
 #include <shlobj.h>
 #include <vector>
+#include <map>
+#include <cwctype>
 #include <psapi.h>
 #include <sstream>
 #include <WebView2.h>
@@ -127,17 +129,18 @@ bool ui(POINT p) {
 json sanitize(const json &);
 void atomicFile(const fs::path &, const json &);
 #include "atomic-json.hpp"
+json settingsDocument();
 void saveConfig(bool clearMotionBackups = false) {
   auto dir = dataRoot;
   fs::create_directories(dir);
   auto file = dir / L"settings.json", temp = dir / L"settings.json.tmp";
-  auto text = cfg.dump(2);
+  auto text = settingsDocument().dump(2);
   writeFlushedJsonTemp(temp, text, "Settings temporary file failed",
                        "Settings flush failed");
   if (clearMotionBackups) {
-    atomicFile(dir / L"settings.json.bak", cfg);
+    atomicFile(dir / L"settings.json.bak", settingsDocument());
     auto previous = dir / L"settings.json.previous.bak";
-    if (fs::exists(previous)) atomicFile(previous, cfg);
+    if (fs::exists(previous)) atomicFile(previous, settingsDocument());
   } else if (fs::exists(file)) {
     json prior;
     try {
@@ -156,6 +159,7 @@ void saveConfig(bool clearMotionBackups = false) {
     throw std::runtime_error("Atomic settings save failed, Win32="+std::to_string(GetLastError()));
 }
 #include "host-files.hpp"
+#include "performance-set-data.hpp"
 json sanitize(const json &input) {
   if (!input.is_object())
     throw std::runtime_error("設定形式が不正です");
@@ -239,6 +243,7 @@ json sanitize(const json &input) {
              c["vmdBpm"] < 20 || c["vmdBpm"] > 400) {
     c["vmdBpm"] = nullptr;
   }
+  putSet(c,normalizeSet(currentSet(c),false));
   return c;
 }
 void applyConfig(const json &patch, bool clearMotionBackups = false) {
@@ -248,6 +253,7 @@ void applyConfig(const json &patch, bool clearMotionBackups = false) {
   for (auto it = patch.begin(); it != patch.end(); ++it)
     merged[it.key()] = it.value();
   cfg = sanitize(merged);
+  if(currentSet(before)!=currentSet(cfg))cfg["setDirty"]=true;
   try {
     saveConfig(clearMotionBackups);
   } catch (...) {
@@ -265,30 +271,7 @@ void applyConfig(const json &patch, bool clearMotionBackups = false) {
                0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
   event("config", cfg);
 }
-json pendingMotion;
-void clearCurrentMotion(const std::string &warning = "") {
-  pendingMotion = nullptr;
-  motionWarning = warning;
-  applyConfig({{"vmdPath", ""}, {"motionHash", ""}, {"vmdBpm", nullptr}});
-}
-
-json commitMotion(double bpm) {
-  if (!std::isfinite(bpm) || bpm < 20 || bpm > 400 || pendingMotion.is_null())
-    throw std::runtime_error("VMDの基準BPMが不正です");
-  auto path = pendingMotion["path"].get<std::string>();
-  auto m = inspectMotion(wide(path));
-  if (m["hash"] != pendingMotion["hash"])
-    throw std::runtime_error("VMDが選択後に変更されました");
-  cfg["vmdPath"] = path;
-  cfg["motionHash"] = m["hash"];
-  cfg["vmdBpm"] = bpm;
-  cfg["profiles"][m["hash"].get<std::string>()] = bpm;
-  motionWarning.clear();
-  saveConfig();
-  event("config", cfg);
-  pendingMotion = nullptr;
-  return m;
-}
+#include "performance-set-host.hpp"
 void motionResource() {
   web->AddWebResourceRequestedFilter(L"https://motion.mgs.invalid/motion.vmd*",
                                      COREWEBVIEW2_WEB_RESOURCE_CONTEXT_ALL);
@@ -300,8 +283,14 @@ void motionResource() {
         int status = 200;
         try {
           log("motion-resource-request");
-          auto b = native_audio::bytes(
-              wide(cfg.value("vmdPath", std::string())), 128 * 1024 * 1024);
+          ICoreWebView2WebResourceRequest *request=nullptr;a->get_Request(&request);
+          if(!request)throw std::runtime_error("Missing motion resource request");
+          LPWSTR raw=nullptr;request->get_Uri(&raw);request->Release();std::wstring uri=raw?raw:L"";if(raw)CoTaskMemFree(raw);
+          const std::wstring prefix=L"https://motion.mgs.invalid/motion.vmd?request=";
+          if(uri.rfind(prefix,0)!=0)throw std::runtime_error("Invalid motion request");
+          auto token=utf8(uri.substr(prefix.size()));auto found=motionRequests.find(token);
+          if(found==motionRequests.end())throw std::runtime_error("Expired motion request");
+          auto b=native_audio::bytes(found->second,128*1024*1024);
           auto memory = GlobalAlloc(GMEM_MOVEABLE, b.size());
           if (!memory)
             throw std::bad_alloc();
@@ -348,6 +337,7 @@ json info() {
           {"settingsRecovery", settingsSource},
           {"settingsWarning", settingsWarning},
           {"motionWarning", motionWarning},
+          {"motionStatuses",motionStatuses},
           {"run", utf8(reportDir.wstring())},
           {"data", utf8(dataRoot.wstring())},
           {"trackTitles", json::object()},
@@ -500,7 +490,7 @@ void message(const std::string &text) {
         auto spec = auditSpec();
         bool controls = spec.is_object() && spec.value("mode", std::string()) ==
                                                 "controls-settings";
-        if (controls && name == "qa-confirm-response") {
+        if ((controls || (diagnosticsEnabled && spec.is_object() && spec.value("mode",std::string())=="v035")) && name == "qa-confirm-response") {
           qaConfirmResponse = args.at(1).get<int>();
           result = true;
         } else if (controls && name == "settings-selftest") {
@@ -509,7 +499,7 @@ void message(const std::string &text) {
         } else if (controls && name == "settings-audit-result") {
           event("settings-audit-result", args.at(1));
           result = true;
-        } else if (controls && name == "confirm")
+        } else if ((controls || (diagnosticsEnabled && spec.is_object() && spec.value("mode",std::string())=="v035" && spec.value("automatedConfirm",false))) && name == "confirm")
           result = qaConfirmResponse;
         else if (controls && name == "save-list") {
           if (!validList(args.at(1)))
@@ -537,7 +527,6 @@ void message(const std::string &text) {
                      "GPU performance is recorded by independent "
                      "performance-monitor; this RPC is not a GPU measurement"}};
         } else if (name == "quit") {
-          closeAllowed = true;
           PostMessageW(hwnd, WM_CLOSE, 0, 0);
           result = true;
         } else if (name == "integration-done" || name == "endurance-progress" ||
@@ -564,13 +553,13 @@ void message(const std::string &text) {
           if (MessageBoxW(
                   settingsHwnd ? settingsHwnd : hwnd,
                   L"一般設定を初期値へ戻しますか？ "
-                  L"VMDの選択・基準BPM・履歴も初期化します。プレイリストとユーザーファイルは保持します。",
+                  L"演奏セットとユーザーファイルは保持します。",
                   L"MGS_MascotPlayer",
                   MB_OKCANCEL | MB_DEFBUTTON2 | MB_ICONQUESTION) == IDOK) {
             auto reset = defaults;
-            for (auto k : {"playlists", "active"})
+            for (auto k : {"playlists", "active", "motions", "assignments", "setName", "setPath", "setDirty", "setEpoch", "lastSetPath", "setsMigrated"})
               reset[k] = cfg[k];
-            pendingMotion = nullptr;
+
             motionWarning.clear();
             applyConfig(reset, true);
             result = true;
@@ -596,44 +585,25 @@ void message(const std::string &text) {
         } else if (name == "confirm") {
           int r = MessageBoxW(
               settingsHwnd ? settingsHwnd : hwnd,
-              L"プレイリストの編集を保存して続行しますか？\nはい：設定へ保存／いいえ：編集を破棄／キャンセル：編集を続ける",
+              L"未保存の演奏セットを保存して終了しますか？\nはい：ファイルへ保存／いいえ：保存せず終了／キャンセル：終了しない",
               L"MGS_MascotPlayer", MB_YESNOCANCEL | MB_ICONQUESTION);
           result = r == IDYES ? 0 : r == IDNO ? 1 : 2;
-        } else if (name == "save-list") {
-          auto d = args.at(1);
-          if (!validList(d))
-            throw std::runtime_error("プレイリスト形式が不正です");
-          auto paths = chooseFiles(false, true, L"Playlist JSON", L"*.json");
-          if (paths.empty())
-            result = false;
-          else {
-            atomicFile(paths[0], d);
-            result = true;
-          }
-        } else if (name == "load-list") {
-          auto paths = chooseFiles(false, false, L"Playlist JSON", L"*.json");
-          if (paths.empty())
-            result = nullptr;
-          else {
-            auto b = native_audio::bytes(paths[0], 1024 * 1024);
-            result = json::parse(b);
-            if (!validList(result))
-              throw std::runtime_error("プレイリスト形式が不正です");
-          }
-        } else if (name == "choose-vmd") {
-          auto paths = chooseFiles(false, false, L"VMD", L"*.vmd");
-          if (paths.empty())
-            result = nullptr;
-          else {
-            pendingMotion = inspectMotion(paths[0]);
-            if (pendingMotion["needsBpm"])
-              result = pendingMotion;
-            else
-              result = commitMotion(pendingMotion["knownBpm"].get<double>());
-          }
-        } else if (name == "vmd-cancel") {
-          pendingMotion = nullptr;
-          result = nullptr;
+        } else if(name=="set-save") {
+          auto options=args.size()>1&&args[1].is_object()?args[1]:json::object();
+          auto path=diagnosticsEnabled?options.value("testPath",std::string()):std::string();
+          result=saveWorkingSet(options.value("as",false),path);
+        } else if(name=="set-load") {
+          std::string path;
+          if(diagnosticsEnabled&&args.size()>1&&args[1].is_object())path=args[1].value("testPath",std::string());
+          if(path.empty()){auto paths=chooseFiles(false,false,L"MGS 演奏セット",L"*.mgsset.json");if(!paths.empty())path=utf8(paths[0]);}
+          if(path.empty())result=false;else{auto next=readSetFile(wide(path));replaceWorkingSet(next,path);result=true;}
+        } else if(name=="set-new") {replaceWorkingSet(emptySet(),"");result=true;
+        } else if(name=="choose-motions") {
+          std::vector<std::wstring> paths;
+          if(diagnosticsEnabled&&args.size()>1&&args[1].is_object()&&args[1].contains("testPaths")){for(auto&p:args[1]["testPaths"])paths.push_back(wide(p.get<std::string>()));}
+          else paths=chooseFiles(true,false,L"VMD",L"*.vmd");result=addMotionFiles(paths);
+        } else if(name=="motion-prepare") {result=prepareMotionRequest(args.at(1));
+        } else if(name=="motion-status") {auto d=args.at(1);auto state=d.value("state",std::string());if(state!="読み込み済み"&&state!="読み込み不可"&&state!="未確認")throw std::runtime_error("Invalid motion state");auto id=d.at("id").get<std::string>();if(motionStatusRequests.value(id,std::string())==d.value("request",std::string())){motionStatuses[id]=state;event("motion-status",motionStatuses);}result=true;
         } else if (name == "settings") {
           openSettings();
           result = true;
@@ -643,31 +613,6 @@ void message(const std::string &text) {
           result = true;
         } else if (name == "player-command") {
           event("player-command", args.at(1));
-          result = true;
-        } else if (name == "vmd-commit")
-          result = commitMotion(args.at(1).get<double>());
-        else if (name == "save-bpm") {
-          auto m = inspectMotion(wide(cfg.value("vmdPath", std::string())));
-          cfg["profiles"][m["hash"].get<std::string>()] = cfg["vmdBpm"];
-          saveConfig();
-          result = m["hash"];
-        } else if (name == "startup-vmd") {
-          if (cfg.value("vmdPath", std::string()).empty())
-            result = nullptr;
-          else {
-            try {
-              auto m = inspectMotion(wide(cfg["vmdPath"]));
-              pendingMotion = m;
-              result = m["needsBpm"].get<bool>()
-                         ? m : commitMotion(m["knownBpm"].get<double>());
-            } catch (const std::exception &e) {
-              log("startup-vmd-unavailable " + std::string(e.what()));
-              clearCurrentMotion("VMDを読み込めないため、VMD未選択で起動しました。設定から選び直してください。");
-              result = {{"invalid", true}, {"warning", motionWarning}};
-            }
-          }
-        } else if (name == "vmd-load-failed") {
-          clearCurrentMotion("VMDを読み込めません。設定から別のVMDを選択してください。");
           result = true;
         } else if (name == "record") {
           if (args.size() > 1)
@@ -1294,6 +1239,7 @@ void loadConfig() {
       }
     }
   }
+  initializePerformanceSets();
   audioCfg = {{"sourceType", cfg["sourceType"]},
               {"channel", cfg["channel"]},
               {"volume", cfg["volume"].get<double>() * 100},

@@ -37,5 +37,14 @@
   ],
   "active": 0,
   "gain": 1,
-  "currentEntryId": ""
+  "currentEntryId": "",
+  "motions": [],
+  "assignments": {},
+  "setName": "新規演奏セット",
+  "setPath": "",
+  "setDirty": false,
+  "setEpoch": 0,
+  "lastSetPath": "",
+  "autoLoadSet": false,
+  "setsMigrated": false
 }

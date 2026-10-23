@@ -21,7 +21,10 @@ run([llvm/'x86_64-w64-mingw32-windres.exe','-i','app-icon.rc','-o',out/'app-icon
 run([llvm/'x86_64-w64-mingw32-clang++.exe','-std=c++17','-O2','-ffile-prefix-map='+str(root)+'=.','-ffile-prefix-map='+str(sdk)+'=/webview2-sdk','-DENABLE_ALT_CLOSE','-DWINVER=0x0A00','-D_WIN32_WINNT=0x0A00','-fms-extensions','-municode','-mwindows','-static','-Wall','-Wextra','-Wl,-Map='+str(out/'host.map'),'-I'+str(include),root/'native/host/composition.cpp',out/'app-icon.res','-o',app/'MGS_MascotPlayer.exe','-lole32','-luuid','-ldcomp','-luser32','-lgdi32','-lshell32','-lpsapi','-lbcrypt','-lcrypt32'])
 run([a.cmake,'-S',root/'native/audio','-B',out/'audio','-G','Ninja','-DCMAKE_BUILD_TYPE=Release','-DCMAKE_SYSTEM_NAME=Windows','-DCMAKE_C_COMPILER='+str(llvm/'x86_64-w64-mingw32-clang.exe'),'-DCMAKE_CXX_COMPILER='+str(llvm/'x86_64-w64-mingw32-clang++.exe'),'-DCMAKE_MAKE_PROGRAM='+str(Path(a.ninja).resolve()),'-DMGS_BUILD_SEEK_PROBE=OFF'])
 run([a.cmake,'--build',out/'audio','--target','audio-core','-j','4']);shutil.copy2(out/'audio/audio-core.exe',app/'audio-core.exe');shutil.copy2(loader,app/'WebView2Loader.dll');shutil.copy2(root/'config/defaults.json',app/'defaults.json');shutil.copytree(root/'licenses',app/'licenses')
-for name in['README.md','THIRD-PARTY-NOTICES.md','LICENSE','LICENSE-SCOPE.md','ASSET-LICENSE.md']:
+for name in['README.md','CHANGELOG.md','THIRD-PARTY-NOTICES.md','LICENSE','LICENSE-SCOPE.md','ASSET-LICENSE.md']:
  if(root/name).exists():shutil.copy2(root/name,app/name)
+# v035: ship the documentation linked by README (docs/PERFORMANCE_SET_FORMAT.md).
+for name in ['ARCHITECTURE.md','BUILD.md','PERFORMANCE_SET_FORMAT.md','RELEASE.md','VERIFICATION.md','ICON_REPLACEMENT.md','FOREARM_FIX-v103.txt','PRIVACY_NOTICE.txt']:
+ if(root/'docs'/name).exists():(app/'docs').mkdir(exist_ok=True);shutil.copy2(root/'docs'/name,app/'docs'/name)
 if(root/'docs/PRIVACY_NOTICE.txt').exists():shutil.copy2(root/'docs/PRIVACY_NOTICE.txt',app/'PRIVACY_NOTICE.txt')
 (out/'output-SHA256.json').write_text(json.dumps({str(f.relative_to(app)).replace('\\','/'):hashlib.sha256(f.read_bytes()).hexdigest()for f in app.rglob('*')if f.is_file()},ensure_ascii=False,indent=2),encoding='utf8');print('Build completed:',app)

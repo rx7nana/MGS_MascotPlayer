@@ -15,6 +15,7 @@ chooseFiles(bool multi, bool save = false,
   COMDLG_FILTERSPEC filters[] = {{filter, pattern},
                                  {L"すべてのファイル", L"*.*"}};
   d->SetFileTypes(2, filters);
+  if(save && std::wstring(pattern)==L"*.mgsset.json")d->SetDefaultExtension(L"mgsset.json");
   std::vector<std::wstring> paths;
   hr = d->Show(settingsHwnd ? settingsHwnd : hwnd);
   if (SUCCEEDED(hr)) {
