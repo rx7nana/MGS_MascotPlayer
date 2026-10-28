@@ -65,7 +65,7 @@ void initializePerformanceSets(){
 json addMotionFiles(const std::vector<std::wstring>&paths){
   json added=json::array();std::set<std::string> keys;for(auto&m:cfg["motions"])keys.insert(motionPathKey(m["path"].get<std::string>()));
   for(const auto&p:paths){auto path=utf8(p);if(!keys.insert(motionPathKey(path)).second)continue;double bpm=120;try{auto m=inspectMotion(p);if(!m["needsBpm"].get<bool>())bpm=m["knownBpm"].get<double>();}catch(...){}
-    added.push_back({{"id",newMotionId()},{"path",path},{"bpm",bpm},{"loop",true}});
+    added.push_back({{"id",newMotionId()},{"path",path},{"bpm",bpm},{"loop",true},{"creditEnabled",false},{"creditText",""}});
   }return added;
 }
 json prepareMotionRequest(const json&m){

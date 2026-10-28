@@ -193,6 +193,12 @@ json sanitize(const json &input) {
   choose("sourceType", {"PSG", "SCC", "OPLL"}, "PSG");
   choose("palette", {"ice", "aurora", "pastel", "neon", "mono"}, "aurora");
   choose("brightness", {"subtle", "standard", "vivid"}, "standard");
+  choose("visualizerType", {"circle", "spectrum", "oscilloscope"}, "circle");
+  if (!c["spectrumBars"].is_number_integer() ||
+      (c["spectrumBars"] != 16 && c["spectrumBars"] != 32 && c["spectrumBars"] != 64))
+    c["spectrumBars"] = 32;
+  double amplitude = c["oscilloscopeAmplitude"].is_number() ? c["oscilloscopeAmplitude"].get<double>() : 2;
+  c["oscilloscopeAmplitude"] = std::isfinite(amplitude) ? std::round(std::clamp(amplitude, .5, 4.) * 2) / 2 : 2;
   c["design"] = "B";
   c["textMode"] = "C";
   c["panelLayout"] = "A";

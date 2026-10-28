@@ -11,7 +11,10 @@ class SortedIndex extends PreparedIndex {
     let beats = false;
     for (const r of rows) {
       if (r.kind !== "beat" && !r.sourceType) continue;
-      const key = JSON.stringify(r);
+      // Native state and diagnostic event rows can describe the same complete
+      // register snapshot. Index it once; synthesis/beat rows are untouched.
+      const { kind, eventType, confidence, basis, ...state } = r;
+      const key = r.kind === "beat" ? JSON.stringify(r) : JSON.stringify(state);
       if (this.keys.has(key)) continue;
       this.keys.add(key);
       if (r.kind === "beat") {
@@ -44,7 +47,8 @@ function installPriorityTransport(audio) {
   const originalReceive = audio.receive;
   audio.receive = function(m) {
     if (this.variant === "A") return originalReceive.call(this, m);
-    if (m.tag !== this.request) return;
+    if (m.tag !== this.request || m.tag === this.receiveFailedTag) return;
+    try {
     if (m.error) {
       this.error = m.error;
       this.generationActive = false;
@@ -93,6 +97,18 @@ function installPriorityTransport(audio) {
       if (this.pipeReady) this.pipe.postMessage({ finished: true, totalFrames: this.song.frames });
       this.finalGeneration = summary;
       resolveInitialBuffer(this);
+    }
+    } catch (error) {
+      // A receiver/index failure must never be advertised as delivered PCM.
+      this.receiveFailedTag = m.tag;
+      this.error = error?.message || String(error);
+      this.generationActive = false;
+      this.ready?.reject(Error(this.error));
+      this.ready = null;
+      this.mode = "error";
+      this.renderer?.pause().catch(() => {});
+      host.prepared("cancel").catch(() => {});
+      this.onError?.(Error(this.error));
     }
   };
   const originalContext = audio.ensureContext;

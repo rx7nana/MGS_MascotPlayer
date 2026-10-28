@@ -13,9 +13,9 @@ inline std::string motionPathKey(const std::string &path) {
   return utf8(w);
 }
 inline json normalizeSet(const json &v, bool strict=true) {
-  if(!v.is_object()||v.value("format",std::string())!="MGS_MascotPlayer.PerformanceSet"||!v.contains("version")||!v["version"].is_number_integer()||v["version"]!=1)
+  if(!v.is_object()||v.value("format",std::string())!="MGS_MascotPlayer.PerformanceSet"||!v.contains("version")||!v["version"].is_number_integer()||(v["version"]!=1&&v["version"]!=2))
     throw std::runtime_error("対応していない演奏セット形式・バージョンです");
-  json o={{"format","MGS_MascotPlayer.PerformanceSet"},{"version",1},{"name",setString(v.at("name"),300)},{"playlists",json::array()},{"active",0},{"motions",json::array()},{"assignments",json::object()}};
+  json o={{"format","MGS_MascotPlayer.PerformanceSet"},{"version",2},{"name",setString(v.at("name"),300)},{"playlists",json::array()},{"active",0},{"motions",json::array()},{"assignments",json::object()}};
   const auto &lists=v.at("playlists");const auto &motions=v.at("motions");const auto &assign=v.at("assignments");
   if(!lists.is_array()||lists.empty()||lists.size()>999||!motions.is_array()||motions.size()>1000||!assign.is_object())throw std::runtime_error("演奏セットの一覧形式が不正です");
   std::set<std::string> listIds,motionIds,paths;
@@ -30,7 +30,9 @@ inline json normalizeSet(const json &v, bool strict=true) {
     auto id=setString(m.at("id"),200),p=setString(m.at("path"),131072);
     if(!motionIds.insert(id).second||!paths.insert(motionPathKey(p)).second)throw std::runtime_error("VMDのIDまたはファイルパスが重複しています");
     if(!m.at("bpm").is_number()||!std::isfinite(m["bpm"].get<double>())||m["bpm"]<20||m["bpm"]>400||!m.at("loop").is_boolean())throw std::runtime_error("VMDの基準BPM・ループ値が不正です");
-    o["motions"].push_back({{"id",id},{"path",p},{"bpm",m["bpm"]},{"loop",m["loop"]}});
+    if(m.contains("creditEnabled")&&!m["creditEnabled"].is_boolean())throw std::runtime_error("クレジット表示設定が不正です");
+    auto credit=m.contains("creditText")?setString(m["creditText"],262144,true):std::string();
+    o["motions"].push_back({{"id",id},{"path",p},{"bpm",m["bpm"]},{"loop",m["loop"]},{"creditEnabled",m.value("creditEnabled",false)},{"creditText",credit}});
   }
   for(auto it=assign.begin();it!=assign.end();++it){
     auto l=std::find_if(o["playlists"].begin(),o["playlists"].end(),[&](const json&x){return x["id"]==it.key();});
@@ -42,8 +44,9 @@ inline json normalizeSet(const json &v, bool strict=true) {
     }
   }
   if(v.contains("active")&&v["active"].is_number_integer()){int a=v["active"].get<int>();if(a>=0&&a<(int)lists.size())o["active"]=a;else if(strict)throw std::runtime_error("選択プレイリストが不正です");}
+  if(o.dump(2).size()>16*1024*1024)throw std::runtime_error("演奏セットが16MiBの上限を超えています");
   return o;
 }
-inline json currentSet(const json &c){return {{"format","MGS_MascotPlayer.PerformanceSet"},{"version",1},{"name",c.at("setName")},{"playlists",c.at("playlists")},{"active",c.at("active")},{"motions",c.at("motions")},{"assignments",c.at("assignments")}};}
+inline json currentSet(const json &c){return {{"format","MGS_MascotPlayer.PerformanceSet"},{"version",2},{"name",c.at("setName")},{"playlists",c.at("playlists")},{"active",c.at("active")},{"motions",c.at("motions")},{"assignments",c.at("assignments")}};}
 inline void putSet(json &c,const json&s){c["setName"]=s.at("name");for(auto k:{"playlists","active","motions","assignments"})c[k]=s.at(k);}
-inline json emptySet(){return {{"format","MGS_MascotPlayer.PerformanceSet"},{"version",1},{"name","新規演奏セット"},{"playlists",json::array({{{"id","empty-list"},{"name","マイプレイリスト"},{"songs",json::array()},{"songIds",json::array()}}})},{"active",0},{"motions",json::array()},{"assignments",json::object()}};}
+inline json emptySet(){return {{"format","MGS_MascotPlayer.PerformanceSet"},{"version",2},{"name","新規演奏セット"},{"playlists",json::array({{{"id","empty-list"},{"name","マイプレイリスト"},{"songs",json::array()},{"songIds",json::array()}}})},{"active",0},{"motions",json::array()},{"assignments",json::object()}};}

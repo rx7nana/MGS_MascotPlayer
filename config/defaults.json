@@ -46,5 +46,9 @@
   "setEpoch": 0,
   "lastSetPath": "",
   "autoLoadSet": false,
-  "setsMigrated": false
+  "setsMigrated": false,
+  "visualizerType": "circle",
+  "spectrumBars": 32,
+  "oscilloscopeAmplitude": 2,
+  "oscilloscopeGlow": true
 }

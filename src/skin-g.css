@@ -26,3 +26,11 @@ body[data-window="settings"] input[type=checkbox]:checked:after{content:'';posit
 .theme-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:14px 0 4px}.theme-choice{min-width:0;padding:8px 3px!important;display:flex;flex-direction:column;align-items:center;gap:7px;font-size:10px!important}.theme-swatch{display:block;width:44px;height:20px;border-radius:4px;border:1px solid #ffffff33}.theme-selection{display:flex;align-items:center;justify-content:space-between;gap:14px}
 
 body[data-window="main"] #popup #popup-range{width:100%}
+
+/* v038: markers follow the 9px thumb center; no snapping or extra settings. */
+#popup .popup-slider{grid-column:1/3;grid-row:2;position:relative;min-width:0;height:18px}
+#popup.has-reset .popup-slider{height:24px}
+#popup #popup-range{display:block;margin:0;width:100%}
+#popup-tick{position:absolute;top:17px;width:1px;height:4px;transform:translateX(-50%);background:var(--ui-muted);opacity:.7;pointer-events:none}
+body[data-window="main"] #controls #popup-reset{grid-column:1/3;grid-row:3;justify-self:start;min-height:25px;padding:3px 8px;font-size:12px;background:color-mix(in srgb,var(--ui-selected) 60%,transparent)}
+#popup-reset[hidden],#popup-tick[hidden]{display:none!important}

@@ -24,7 +24,7 @@ run([a.cmake,'--build',out/'audio','--target','audio-core','-j','4']);shutil.cop
 for name in['README.md','CHANGELOG.md','THIRD-PARTY-NOTICES.md','LICENSE','LICENSE-SCOPE.md','ASSET-LICENSE.md']:
  if(root/name).exists():shutil.copy2(root/name,app/name)
 # v035: ship the documentation linked by README (docs/PERFORMANCE_SET_FORMAT.md).
-for name in ['ARCHITECTURE.md','BUILD.md','PERFORMANCE_SET_FORMAT.md','RELEASE.md','VERIFICATION.md','ICON_REPLACEMENT.md','FOREARM_FIX-v103.txt','PRIVACY_NOTICE.txt']:
+for name in ['ARCHITECTURE.md','BUILD.md','PERFORMANCE_SET_FORMAT.md','RELEASE.md','VERIFICATION.md','ICON_REPLACEMENT.md','FOREARM_FIX-v103.txt','PRIVACY_NOTICE.txt','VISUALIZER-v041.txt']:
  if(root/'docs'/name).exists():(app/'docs').mkdir(exist_ok=True);shutil.copy2(root/'docs'/name,app/'docs'/name)
 if(root/'docs/PRIVACY_NOTICE.txt').exists():shutil.copy2(root/'docs/PRIVACY_NOTICE.txt',app/'PRIVACY_NOTICE.txt')
 (out/'output-SHA256.json').write_text(json.dumps({str(f.relative_to(app)).replace('\\','/'):hashlib.sha256(f.read_bytes()).hexdigest()for f in app.rglob('*')if f.is_file()},ensure_ascii=False,indent=2),encoding='utf8');print('Build completed:',app)
