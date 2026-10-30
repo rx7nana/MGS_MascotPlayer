@@ -21,6 +21,12 @@ bool saveWorkingSet(bool as,const std::string &testPath=""){
   std::string path=as?"":cfg.value("setPath",std::string());
   if(!testPath.empty())path=testPath;
   if(path.empty()){auto p=chooseFiles(false,true,L"MGS 演奏セット",L"*.mgsset.json");if(p.empty())return false;path=utf8(p.front());}
+  if(fs::is_regular_file(wide(path))){
+    try{auto old=json::parse(native_audio::bytes(wide(path),16*1024*1024));
+      if(old.is_object()&&old.value("format",std::string())=="MGS_MascotPlayer.PerformanceSet"&&old.contains("version")&&old["version"].is_number_integer()&&old["version"]<3)
+        throw std::runtime_error("旧形式の演奏セットは上書きしません。名前を付けて保存で別の保存先を指定してください。");
+    }catch(const json::exception&){}
+  }
   auto payload=normalizeSet(currentSet(cfg));atomicFile(wide(path),payload);
   auto before=cfg;cfg["setPath"]=path;cfg["lastSetPath"]=path;cfg["setDirty"]=false;
   try{saveConfig();}catch(...){cfg=before;throw;}
@@ -43,7 +49,7 @@ void initializePerformanceSets(){
       auto source=dataRoot/L"settings.json";if(settingsSource=="backup"){source+=L".bak";if(!fs::exists(source))source=dataRoot/L"settings.json.previous.bak";}
       auto preserve=dataRoot/(L"v103-settings-original-"+std::to_wstring(GetTickCount64())+L".json");
       fs::copy_file(source,preserve);
-      auto migrated=currentSet(cfg);migrated["name"]="新規演奏セット";
+      auto migrated=currentSet(cfg);migrated["name"]="新規演奏セット";migrated["version"]=1;
       auto old=cfg.value("vmdPath",std::string());
       if(!old.empty()){
         double bpm=cfg["vmdBpm"].is_number()?cfg["vmdBpm"].get<double>():120;
@@ -52,7 +58,7 @@ void initializePerformanceSets(){
       }
       auto path=dataRoot/(L"Ver1.0.3移行セット-"+std::to_wstring(GetTickCount64())+L".mgsset.json");atomicFile(path,normalizeSet(migrated));
       atomicFile(journal,{{"version",1},{"path",utf8(path.wstring())},{"original",utf8(preserve.wstring())}});
-      putSet(cfg,migrated);cfg["setPath"]=utf8(path.wstring());cfg["lastSetPath"]=cfg["setPath"];
+      putSet(cfg,normalizeSet(migrated));cfg["setPath"]=utf8(path.wstring());cfg["lastSetPath"]=cfg["setPath"];
       settingsWarning="旧設定を演奏セットへ移行しました。初回のみ表示します。自動読み込みOFFの場合、次回は空のセットで起動します。移行ファイルは保持されます。";
     }else putSet(cfg,emptySet());
     cfg["setsMigrated"]=true;cfg["setDirty"]=false;cfg["vmdPath"]="";cfg["vmdBpm"]=nullptr;cfg["motionHash"]="";
@@ -65,7 +71,7 @@ void initializePerformanceSets(){
 json addMotionFiles(const std::vector<std::wstring>&paths){
   json added=json::array();std::set<std::string> keys;for(auto&m:cfg["motions"])keys.insert(motionPathKey(m["path"].get<std::string>()));
   for(const auto&p:paths){auto path=utf8(p);if(!keys.insert(motionPathKey(path)).second)continue;double bpm=120;try{auto m=inspectMotion(p);if(!m["needsBpm"].get<bool>())bpm=m["knownBpm"].get<double>();}catch(...){}
-    added.push_back({{"id",newMotionId()},{"path",path},{"bpm",bpm},{"loop",true},{"creditEnabled",false},{"creditText",""}});
+    added.push_back({{"id",newMotionId()},{"path",path},{"bpm",bpm},{"loop",true},{"textPosition","none"},{"textMode","always"},{"creditText",""}});
   }return added;
 }
 json prepareMotionRequest(const json&m){

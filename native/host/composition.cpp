@@ -249,6 +249,7 @@ json sanitize(const json &input) {
              c["vmdBpm"] < 20 || c["vmdBpm"] > 400) {
     c["vmdBpm"] = nullptr;
   }
+  for(auto &m:c["motions"]){if(!m.contains("textPosition"))m["textPosition"]=m.value("creditEnabled",false)?"bottom-right":"none";if(!m.contains("textMode"))m["textMode"]="always";}
   putSet(c,normalizeSet(currentSet(c),false));
   return c;
 }
@@ -1301,7 +1302,7 @@ int WINAPI wWinMain(HINSTANCE hi, HINSTANCE, PWSTR, int) {
   RegisterClassW(&wc);
   hwnd = CreateWindowExW(
       (WS_EX_APPWINDOW | WS_EX_TOPMOST | WS_EX_NOREDIRECTIONBITMAP),
-      wc.lpszClassName, L"MGS_MascotPlayer WebView2 統合検証",
+      wc.lpszClassName, L"MGS_MascotPlayer",
       WS_POPUP | WS_VISIBLE, 80, 40, 640, 760, nullptr, nullptr, hi, nullptr);
 
   setAppIcons(hwnd);

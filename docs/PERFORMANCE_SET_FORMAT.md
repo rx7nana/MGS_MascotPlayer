@@ -1,19 +1,16 @@
-# 演奏セット version 2（Ver1.0.5）
+# 演奏セット version 3（Ver1.0.6）
 
-formatは`MGS_MascotPlayer.PerformanceSet`。書込versionは2、読込は1と2に対応します。v1読込だけでは元ファイルを上書きせず、未保存変更にも扱いません。明示保存でv2になります。旧アプリはv2非対応のため、旧v1原本を残す場合は名前を付けて保存してください。未知のversion、不正型、参照不整合では全体読込を拒否し、現在の編集を保護します。
+formatは`MGS_MascotPlayer.PerformanceSet`。書込は3、読込は1/2/3。既存のname/playlists(id/name/songs/songIds)/active/motions/assignmentsを維持。
 
-従来のname/playlists(id/name/songs/songIds)/active/motions/assignmentsは維持します。各motions要素に`creditEnabled`(boolean、既定false)と`creditText`(string、既定空文字)を追加します。例：
+motionsはid/path/bpm/loop、creditText（本文）、textPosition、textModeを保持します。textPositionはnone/top-left/bottom-left/bottom-right、textModeはalways/brief。creditEnabledは旧形式の移行入力だけに使い、v3は表示位置へ統合します。5000/1000msは固定値で保存しません。
 
+例：
 ```json
-{"id":"motion-id","path":"user-motion.vmd","bpm":160,"loop":true,"creditEnabled":true,"creditText":"モーション：作者名\n配布元 https://example.invalid/"}
+{"id":"motion-id","path":"user-motion.vmd","bpm":160,"loop":true,"textPosition":"top-left","textMode":"brief","creditText":"任意の文章\n次の行"}
 ```
 
-ON/OFFと本文は別々に保存し、OFFでも本文を保持します。同じセット内ではVMD IDで共有し、別セットには別々のVMD登録データを保持します。グローバルなクレジット履歴は作りません。
+旧v1/v2はcreditEnabled=trueならbottom-right、false/欠落ならnone。textModeはalways。creditTextは存在すれば保持、欠落なら空欄。旧v1/v2の読込だけで原本を変更せず、dirtyを立てません。明示保存時も旧原本への上書きは拒否し、別名保存を案内。旧Ver1.0.5はv3を拒否します。
 
-編集欄は4行を初期値とする複数行入力で、最大65,536 UTF-16コード単位です。読込本文は1VMDにつきUTF-8で262,144bytesまで、演奏セット全体16MiBまで。容量/型不正は切り詰めて保存せずエラーとし、元ファイルと現在のセットを保護します。表示は全文をプレーンテキストとして渡し、改行保持・右揃え・折返しを行い、最大行数/省略記号/専用スクロールはありません。極端な長文は既存ウィンドウと操作部を保護するため、表示可能な領域でクリップします。元の文字列は全文保存します。
+未知version、未知の位置/モード、不正型、不正参照、上限超過は全体を拒否し、現在のセットを保護。本文は従来どおりNUL不可、262,144 UTF-8 bytesまで、全体は2スペース整形JSONで16MiBまで。UI本文上限65,536 UTF-16コード単位。noneでも本文・モードを保持します。
 
-保存は従来通り同一ディレクトリの一時ファイルへ書きflush後に置換。新規/読込/保存/別名保存/未保存確認/保存失敗保護を維持。settings.jsonには未保存のセット本文を保存せず、起動時自動読込ONは最後の保存済みセットだけを復元します。
-
-クレジットは再生開始時のVMDスナップショットを使用します。再生中の本文/ON編集、別セット読込、登録解除ではその演奏の表示を変えず、次の演奏から適用。一時停止・シークは保持、曲終了・停止・準備中・VMDなし/失敗・OFF/空欄は非表示です。URLをリンク化せず、自動通信/HTML実行はしません。利用条件の自動判定や利用制御も行いません。
-
-保存上限の判定は、原子的保存と同じ2スペース整形JSONのUTF-8バイト数で行います。整形用空白を含む16MiB境界も検証済みです。
+保存は既存atomicFileの一時ファイル・flush・置換を使用。未保存編集は一般設定へ自動保存せず、起動時自動読込ONは最後の保存済みセットのみ復元します。同じVMDパスでも別セットの設定は独立します。

@@ -46,3 +46,10 @@ body #mini.dragging #drop-hint{background:none!important}
 /* Credits are plain text and never become native or browser mouse targets. */
 #motion-credit{position:absolute;z-index:3;white-space:pre-wrap;overflow-wrap:anywhere;text-align:right;text-overflow:clip;overflow:hidden;pointer-events:none;user-select:none;background:none;border:0;padding:0;margin:0}
 #motion-credit[hidden]{display:none}
+
+/* v045: reviewed B-3 styling; main playlist title spans only. */
+#mini #tracks .song>span{color:var(--ui-accent);-webkit-text-stroke:0;text-shadow:0 1px 1px #001522,0 -1px 1px #001522,1px 0 1px #001522,-1px 0 1px #001522,0 0 2px color-mix(in srgb,var(--ui-accent) 80%,transparent),0 0 5px color-mix(in srgb,var(--ui-accent) 60%,transparent),0 0 8px color-mix(in srgb,var(--ui-accent) 40%,transparent)}
+#mini #tracks .song.current[data-oled-selected="true"]>span::before{content:'♪ ';color:inherit}
+
+/* v045 additional fix: dark outline only; no neon on arbitrary VMD text. */
+#motion-credit{text-shadow:0 1px 1px #001522,0 -1px 1px #001522,1px 0 1px #001522,-1px 0 1px #001522}
