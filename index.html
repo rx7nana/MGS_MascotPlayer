@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>ダウンロード前の確認事項 | MGS_MascotPlayer Ver1.1.0</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="consent.css">
+  <script src="consent.js" defer></script>
+</head>
+<body class="document-page">
+  <a class="skip" href="#main">本文へ移動</a>
+  <main id="main">
+    <header>
+      <p class="product">MGS_MascotPlayer Ver1.1.0</p>
+      <h1>ダウンロード前の確認事項</h1>
+      <p class="intro">Windows向けアプリです。VGM再生機能の既知のリスクと利用条件を確認してください。</p>
+      <p class="preview-notice">Ver1.1.0は公開準備中です。現在、このページからZIPを取得することはできません。</p>
+    </header>
+
+    <section class="warning" aria-labelledby="warning-title">
+      <h2 id="warning-title">重要なセキュリティ警告</h2>
+      <p>VGM再生には、利用者が別途用意する外部プログラム <code>vgm2wav.exe</code> が必要です。その基盤であるlibvgmに、<strong>CVE-2026-111150</strong>が報告されています。</p>
+      <p><strong>開発時に検証した固定版EXEにも、この脆弱性が確認されています。</strong>細工されたVGMを処理すると、外部プログラムの異常終了などの影響が生じ得ます。影響を異常終了だけに限定して、安全性を保証するものではありません。</p>
+      <p>本アプリは外部EXEを同梱していません。外部EXEを別途入手しても、その安全性が自動的に保証されるわけではありません。<strong>公式修正版の安全性・互換性確認は未完了です。</strong></p>
+      <p class="warning-end">このページへの同意によって、脆弱性が解消されることはありません。</p>
+    </section>
+
+    <section  aria-labelledby="responsibility-title">
+      <h2 id="responsibility-title">利用者の判断と免責</h2>
+      <p>VGM再生機能に関連する既知のリスクを理解したうえで、利用者自身の判断と責任により利用してください。</p>
+      <p>本ソフトウェアは現状のまま提供します。適用法令により認められる範囲で、開発者は、本ソフトウェアまたは外部プログラムの利用により生じた損害について責任を負わないものとします。ただし、開発者の故意・重大な過失による責任その他法令上免除できない責任を免除するものではありません。</p>
+      <p>本同意は、法令上の権利を一律に制限したり、外部プログラムの利用・再配布を許諾したりするものではありません。免責文言は法的レビュー前の候補であり、法的有効性を保証するものではありません。</p>
+    </section>
+
+    <section  aria-labelledby="rights-title">
+      <h2 id="rights-title">権利者への対応</h2>
+      <p>libvgm全体および個別ビルドの利用・再配布条件を、一括して確認済みとはしていません。本アプリのライセンスやこのページへの同意は、外部プログラムの権利者による許諾に代わるものではありません。</p>
+      <p>外部レンダラーの正当な権利者から利用方法等について申し立てがあった場合、内容を確認し、速やかに必要な対応を行います。対応には、VGM再生方式の変更、機能の一時停止または提供終了が含まれます。</p>
+      <p>この対応方針は、利用許諾を取得したことを意味しません。また、既に配布されたアプリを遠隔で即時停止できる仕組みを示すものではありません。</p>
+    </section>
+
+    <section class="references" aria-labelledby="reference-title">
+      <h2 id="reference-title">参照情報</h2>
+      <ul>
+        <li><a href="https://github.com/ValleyBell/libvgm">libvgm公式GitHub</a></li>
+        <li><a href="https://www.vulncheck.com/advisories/valleybell-libvgm-through-commit-a6eed945-heap-out-of-bounds-read-via-decompressdatablk">CVE-2026-111150の告知</a></li>
+        <li><a href="https://github.com/ValleyBell/libvgm/issues/129">libvgmのライセンスに関する議論</a></li>
+      </ul>
+    </section>
+
+    <section class="consent" aria-labelledby="consent-title">
+      <h2 id="consent-title">同意確認</h2>
+      <label class="check-label" for="consent">
+        <input id="consent" type="checkbox" autocomplete="off" aria-describedby="consent-status">
+        <span>上記の注意事項を読み、リスクを理解したうえで同意します。</span>
+      </label>
+      <p id="consent-status" role="status" aria-live="polite">同意にチェックすると、案内ボタンを操作できます。</p>
+      <button id="continue" type="button" disabled>同意してダウンロードへ進む</button>
+      <p class="destination-note">正式な配布先は準備中です。公開後、確認済みのVer1.1.0 Releaseページへ案内します。</p>
+      <noscript><p class="no-script">JavaScriptが無効のため、同意の確認とダウンロード案内を利用できません。このページにダウンロード先の直接リンクはありません。</p></noscript>
+    </section>
+    <footer>このページのプログラムは同意状態や利用者情報を保存・送信せず、Cookieやアクセス解析を追加しません。</footer>
+  </main>
+</body>
+</html>
