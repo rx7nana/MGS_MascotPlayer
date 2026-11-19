@@ -3,8 +3,8 @@
   const checkbox = document.getElementById('consent');
   const button = document.getElementById('continue');
   const status = document.getElementById('consent-status');
-  // Release is not public yet. Set only its verified final URL after approval.
-  const destination = null;
+  // Verified public Ver1.1.0 Release destination.
+  const destination = new URL('https://github.com/rx7nana/MGS_MascotPlayer/releases/tag/v1.1.0');
   function resetConsent() {
     checkbox.checked = false;
     button.disabled = true;
