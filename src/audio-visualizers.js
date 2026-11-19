@@ -8,7 +8,7 @@ export function copyCurrentWave(target,state){
  target.fill(0);const end=Math.max(0,Math.min(state.frames||0,Math.floor(state.position*48000))),begin=Math.max(0,end-target.length);
  if(!state.pcm||!state.ranges?.some(([a,b])=>a<=begin&&b>=end))return false;
  const pad=target.length-(end-begin),gain=Number.isFinite(state.gain)?state.gain:1;
- for(let i=begin;i<end;i++)target[pad+i-begin]=state.pcm[i]/32768*gain;
+ for(let i=begin;i<end;i++)target[pad+i-begin]=state.pcm[i-(state.pcmOffset||0)]/32768*gain;
  return true;
 }
 export class AudioVisualizers {

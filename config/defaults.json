@@ -50,5 +50,6 @@
   "visualizerType": "circle",
   "spectrumBars": 32,
   "oscilloscopeAmplitude": 2,
-  "oscilloscopeGlow": true
+  "oscilloscopeGlow": true,
+  "vgmTracks": {}
 }

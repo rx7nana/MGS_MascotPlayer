@@ -129,6 +129,7 @@ inline std::wstring arg(const std::wstring &s) {
   r.append(sl * 2, L'\\');
   return r + L"\"";
 }
+#include "vgm-file-v049.hpp"
 struct Child {
   HANDLE p = nullptr, in = nullptr, out = nullptr, err = nullptr;
   DWORD pid = 0, finalCode = STILL_ACTIVE;
@@ -284,15 +285,30 @@ class Broker {
   std::atomic<bool> stopping{false};
   std::map<int, std::unique_ptr<Session>> sessions;
   int sequence = 0;
+  std::unique_ptr<v049::Manager> vgm;
   J execute(const J &r) {
     auto a = r.at("args");
     auto name = a.at(0).get<std::string>();
+    if(name=="vgm-start")return vgm->start(std::filesystem::path(wide(a.at(1))),a.at(2).get<std::string>());
+    if(name=="vgm-status")return vgm->status(a.at(1).get<std::string>());
+    if(name=="vgm-read")return vgm->read(a.at(1).get<std::string>(),a.at(2).get<uint64_t>(),a.at(3).get<size_t>());
+    if(name=="vgm-cancel")return vgm->stop(a.size()>1?a.at(1).get<std::string>():std::string());
     if (name == "audit") {
       auto dir = data / (L"audit-" + std::to_wstring(GetTickCount64()));
       std::filesystem::create_directories(dir);
       std::ofstream f(dir / L"generation.json");
       f << a.at(1).dump();
       return true;
+    }
+    if(name=="read-vgm"){
+      auto p=std::filesystem::path(wide(a.at(1)));std::ifstream f(p,std::ios::binary);if(!f)throw std::runtime_error("VGMファイルを開けません");
+      auto size=std::filesystem::file_size(p);if(size<64||size>2ULL*1024*1024*1024)throw std::runtime_error("VGMサイズが不正です（上限2GiB）");
+      std::vector<unsigned char> head(64);f.read((char*)head.data(),64);if(std::string((char*)head.data(),4)!="Vgm ")throw std::runtime_error("VGMヘッダーが不正です。VGZはこのUI検証版の対象外です");
+      auto u=[&](size_t n){return uint32_t(head[n])|(uint32_t(head[n+1])<<8)|(uint32_t(head[n+2])<<16)|(uint32_t(head[n+3])<<24);};
+      if(uint64_t(u(4))+4!=size||u(8)<0x100||u(8)>0x171)throw std::runtime_error("VGMのサイズ宣言・バージョンが不正です");
+      StreamingHash hash;f.seekg(0);std::vector<unsigned char> chunk(65536);while(f){f.read((char*)chunk.data(),chunk.size());auto n=f.gcount();if(n){auto part=chunk;part.resize(size_t(n));hash.update(part);}}if(!f.eof())throw std::runtime_error("VGM読み込みに失敗しました");
+      std::string title;auto gd=u(0x14);if(gd){uint64_t at=uint64_t(gd)+0x14;if(at+12>size)throw std::runtime_error("GD3位置が不正です");f.clear();f.seekg(at);unsigned char h[12];f.read((char*)h,12);auto n=uint32_t(h[8])|(uint32_t(h[9])<<8)|(uint32_t(h[10])<<16)|(uint32_t(h[11])<<24);if(std::string((char*)h,4)!="Gd3 "||h[4]!=0||h[5]!=1||h[6]!=0||h[7]!=0||n%2||n>1048576||at+12+n>size)throw std::runtime_error("GD3形式が不正です");std::vector<unsigned char> text(n);f.read((char*)text.data(),n);std::vector<std::wstring> fields;std::wstring field;for(size_t i=0;i<n;i+=2){wchar_t c=text[i]|(text[i+1]<<8);if(!c){fields.push_back(field);field.clear();}else field+=c;}if(fields.size()<11||!field.empty())throw std::runtime_error("GD3文字列が不正です");title=utf8(!fields[1].empty()?fields[1]:fields[0]);}
+      return {{"kind","vgm"},{"inputSHA256",hash.digest()},{"title",title},{"titleDefined",!title.empty()},{"size",size}};
     }
     if (name == "read-song") {
       auto p = std::filesystem::path(wide(a.at(1)));
@@ -470,6 +486,7 @@ public:
          std::function<void(J)> f)
       : app(a), data(d), reply(f) {
     std::filesystem::create_directories(data);
+    vgm=std::make_unique<v049::Manager>(app,data/L"vgm");
     thread = std::thread([this] {
       while (true) {
         J r;
@@ -488,7 +505,7 @@ public:
           reply({{"kind", "reply"}, {"id", r.at("id")}, {"error", e.what()}});
         }
       }
-      sessions.clear();
+      vgm->stop();sessions.clear();
     });
   }
   void enqueue(J r) {

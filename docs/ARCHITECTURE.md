@@ -1,8 +1,8 @@
-# Ver1.0.6 演奏セットとテキスト表示構成
+# 演奏セットと再生構成
 
 src/settings.jsは実行中セットをhost.setで更新する編集UIです。旧PlaylistDraftは通常UIでは使いません。performance-set.jsは曲出現IDからVMDを解決し、演奏開始時に独立したスナップショットを作成します。
 
-native/host/performance-set-data.hppはversion 1/2/3ファイルを検証し、performance-set-host.hppは原子的な保存・一体読み込み・初回移行・起動ポリシーを担当します。settingsDocumentは実行中の曲・モーション・未保存編集を一般設定JSONへ保存しません。autoLoadSet、lastSetPath、setsMigratedはアプリ全体設定です。
+native/host/performance-set-data.hppはversion 1/2/3/4ファイルを検証し、performance-set-host.hppは原子的な保存・一体読み込み・初回移行・起動ポリシーを担当します。settingsDocumentは実行中の曲・モーション・未保存編集を一般設定JSONへ保存しません。autoLoadSet、lastSetPath、setsMigratedはアプリ全体設定です。
 
 ui.js/loadCurrentは音声compileとVMD準備を待機し、最新要求だけを開始します。準備中のシークは最後の要求位置を記録して開始前に適用。再生中の同期は既存音声出力時計です。新VMDの旧状態初期化はmotion-driver.jsとview.clearMotionが担当し、morph/IK/rigid/可視性と保持履歴を初期化します。
 
@@ -11,3 +11,5 @@ nativeのmotionRequestsは要求tokenとパスの対応だけです。VMDデー�
 assetsと前腕solver、native/audio、prepare-worker-port.js、priority-transport等の音声生成・PCMキャッシュ処理は承認済みの処理を維持します。ライセンスは既存原文を保持します。
 
 表示専用CreditDisplayは対象コピー・phase・開始時刻を保持し、既存RAFで透明度を更新します。明示pause/resume/stopとloadCurrent完了、setEpochを参照します。音声のmodeだけを再開判定に使用しません。新しい表示用の定期タイマー・Worker・キャッシュはありません。
+
+VGMはVgmAudioAdapter→native VGM Job/Wave→既存AudioRendererWorkletProcessorの固定リング経路を使います。0.512秒生成とmain/Worklet各最大0.15秒供給を待ち、以後も通常変換を継続します。未生成シークは通常変換待機で、優先レンダラーは追加しません。保存はv4。MGS/MML生成と同期時計の方式は維持します。

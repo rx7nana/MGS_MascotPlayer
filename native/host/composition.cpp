@@ -339,6 +339,7 @@ json auditSpec() {
   auto b = native_audio::bytes(p, 1048576);
   return json::parse(b);
 }
+json observedBpms=json::object();
 json info() {
   return {{"cfg", cfg},
           {"settingsRecovery", settingsSource},
@@ -347,7 +348,7 @@ json info() {
           {"motionStatuses",motionStatuses},
           {"run", utf8(reportDir.wstring())},
           {"data", utf8(dataRoot.wstring())},
-          {"trackTitles", json::object()},
+          {"trackTitles", json::object()},{"trackBpms",observedBpms},
           {"auditSpec", auditSpec()},
           {"inputTest", false},
           {"auditMode", false},
@@ -389,6 +390,7 @@ void message(const std::string &text) {
       } else if (method == "generation-audit") {
         nativeBroker->enqueue(
             {{"id", "audit"}, {"args", json::array({"audit", d})}});
+      } else if(method=="integration-status"){if((d.value("mode",std::string())=="playing"||d.value("mode",std::string())=="paused")&&d.contains("path")&&d["path"].is_string()&&d.contains("bpm")&&d["bpm"].is_number()){auto p=d["path"].get<std::string>();auto b=d["bpm"].get<double>();if(!p.empty()&&std::isfinite(b)&&b>0&&(!observedBpms.contains(p)||observedBpms[p]!=b)){observedBpms[p]=b;event("track-bpm",{{"path",p},{"bpm",b}});}}if(diagnosticsEnabled)log(method+" "+d.dump());
       } else if (method == "script-error" || method == "script-rejection" ||
                  (diagnosticsEnabled &&
                   (method == "integration-status" || method == "stats")))
@@ -564,7 +566,7 @@ void message(const std::string &text) {
                   L"MGS_MascotPlayer",
                   MB_OKCANCEL | MB_DEFBUTTON2 | MB_ICONQUESTION) == IDOK) {
             auto reset = defaults;
-            for (auto k : {"playlists", "active", "motions", "assignments", "setName", "setPath", "setDirty", "setEpoch", "lastSetPath", "setsMigrated"})
+            for (auto k : {"playlists", "active", "motions", "assignments", "vgmTracks", "setName", "setPath", "setDirty", "setEpoch", "lastSetPath", "setsMigrated"})
               reset[k] = cfg[k];
 
             motionWarning.clear();
@@ -574,6 +576,8 @@ void message(const std::string &text) {
             result = false;
         } else if (name == "com-status" || name == "production-com-status")
           result = externals();
+        else if (name == "vgm-tool-status")
+          result = v052::rendererStatus(root);
         else if (name == "externals-required") {
           auto kind = args.size() > 1 && args[1].is_object()
                           ? args[1].value("kind", std::string())
@@ -1488,3 +1492,4 @@ int WINAPI wWinMain(HINSTANCE hi, HINSTANCE, PWSTR, int) {
   log("exit code=" + std::to_string(appExitCode));
   return appExitCode;
 }
+

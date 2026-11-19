@@ -23,7 +23,7 @@ bool saveWorkingSet(bool as,const std::string &testPath=""){
   if(path.empty()){auto p=chooseFiles(false,true,L"MGS 演奏セット",L"*.mgsset.json");if(p.empty())return false;path=utf8(p.front());}
   if(fs::is_regular_file(wide(path))){
     try{auto old=json::parse(native_audio::bytes(wide(path),16*1024*1024));
-      if(old.is_object()&&old.value("format",std::string())=="MGS_MascotPlayer.PerformanceSet"&&old.contains("version")&&old["version"].is_number_integer()&&old["version"]<3)
+      if(old.is_object()&&old.value("format",std::string())=="MGS_MascotPlayer.PerformanceSet"&&old.contains("version")&&old["version"].is_number_integer()&&old["version"]<4)
         throw std::runtime_error("旧形式の演奏セットは上書きしません。名前を付けて保存で別の保存先を指定してください。");
     }catch(const json::exception&){}
   }

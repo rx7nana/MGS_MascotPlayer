@@ -15,14 +15,3 @@ target_compile_options(audio-core PRIVATE -finput-charset=UTF-8)
 target_link_options(audio-core PRIVATE -municode -static "-Wl,-Map=${CMAKE_BINARY_DIR}/audio-core.map")
 target_include_directories(audio-core PRIVATE vendor/mgsc/src vendor/libkss/src vendor/libkss/modules)
 target_link_libraries(audio-core kss compiler_wrapper psapi)
-
-
-
-option(MGS_BUILD_SEEK_PROBE "Build isolated seek feasibility probe" OFF)
-if(MGS_BUILD_SEEK_PROBE)
-add_executable(seek-state-probe ../../probe/seek-state-probe.cpp)
-target_compile_features(seek-state-probe PRIVATE cxx_std_17)
-target_include_directories(seek-state-probe PRIVATE . vendor/libkss/src vendor/libkss/modules)
-target_link_libraries(seek-state-probe kss)
-target_link_options(seek-state-probe PRIVATE -municode -static)
-endif()

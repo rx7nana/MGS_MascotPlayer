@@ -66,3 +66,16 @@ body.set-page[data-window="settings"] label.row{border-bottom:0!important}
 /* v043 spacing follow-up: expose both dropdown focus outlines without moving the text editor. */
 #credit-fields > label.row:first-child{margin-bottom:6px}
 #credit-fields > .credit-text-label{margin-top:6px}
+
+/* v048: one shared column grid, fixed heading and a scrolling body only. */
+.playlist-grid{border:1px solid var(--ui-edge,#3c5c73);border-radius:6px;background:var(--ui-base,#102033);overflow:hidden}
+.song-heading{display:grid;grid-template-columns:minmax(0,1fr) 64px minmax(0,.7fr);gap:14px;padding:7px 23px 6px 7px;font-weight:600}
+.playlist-grid #songs{height:116px;border:0;border-radius:0;margin:0;padding:0 3px 3px;overflow-y:scroll;scrollbar-gutter:stable}
+.playlist-grid #songs .song-row{grid-template-columns:minmax(0,1fr) 64px minmax(0,.7fr);gap:14px;padding:2px 4px;align-items:center;height:28px;outline-offset:-2px;cursor:pointer}
+.playlist-grid #songs input[type=number]{width:62px;height:25px;padding:2px 4px;font-size:13px;min-width:0}
+.readonly-bpm{color:#82909b}.playlist-grid #songs input:focus-visible{outline-offset:-1px}
+
+.playlist-grid #songs input::-webkit-inner-spin-button{opacity:1}
+
+/* Match the existing playlist actions-to-grid gap without changing columns. */
+.playlist-grid + label.row{margin-top:7px}

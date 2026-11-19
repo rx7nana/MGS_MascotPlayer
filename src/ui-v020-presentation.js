@@ -33,7 +33,7 @@ function installV020Presentation(audio, getConfig) {
     const value = getConfig().gain ?? 1, metadata = audio.song?.metadata;
     if (metadata && metadata.origin?.gain !== "MML" && metadata.values.gain !== value) {
       metadata.values.gain = value;
-      metadata.origin.gain = "player";
+      (metadata.origin ??= {}).gain = "player";
       audio.setVolume(audio.volume);
     }
   }
@@ -98,6 +98,10 @@ function installV020Presentation(audio, getConfig) {
       signature = "";
     }
     if (!song || audio.mode === "error") ranges = [];
+    // VGM is playable only after its complete disk WAV has been validated.
+    // This is UI availability, not the bounded in-memory playback buffer.
+    if (audio.vgm) ranges = song?.kind === "vgm" && audio.compiled && audio.mode !== "error" && audio.mode !== "stopped"
+      ? (audio.generated > 0 ? [[0, Math.min(song.frames, audio.generated)]] : []) : [];
     gain();
     const frames = song?.frames || 0;
     const visible = ranges.map(([a, b]) => [Math.min(a, frames), Math.min(b, frames)]).filter(([a, b]) => b > a);

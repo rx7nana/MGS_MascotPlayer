@@ -1,4 +1,5 @@
 #pragma once
+#include "vgm-tool-status-v052.hpp"
 std::vector<std::wstring>
 chooseFiles(bool multi, bool save = false,
             const wchar_t *filter = L"すべてのファイル",
